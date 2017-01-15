@@ -1,7 +1,7 @@
 ---
 layout: docs
-title: 按钮
-description: 按钮规范
+title: 颜色
+description: 颜色规范
 group: ui
 ---
 
@@ -10,11 +10,6 @@ group: ui
 * Will be replaced with the ToC, excluding the "Contents" header
 {:toc}
 
-## 尺寸
-
-默认使用 `btn-sm` ，比如搜索栏的搜索按钮。列表操作栏中的按钮，使用 `btn-xs`。
-
-## 状态
 按钮分为三种状态：
 - 激活状态
 - 禁用状态
