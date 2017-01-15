@@ -1,2 +1,2 @@
 # Hum
-A tool to build document file with
+A tool to build document file with markdown
