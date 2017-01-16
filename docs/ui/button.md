@@ -1,22 +1,13 @@
----
-layout: docs
-title: 按钮
-description: 按钮规范
-group: ui
----
-
-## 目录
-
-* Will be replaced with the ToC, excluding the "Contents" header
-{:toc}
+# 按钮
 
 ## 尺寸
 
-默认使用 `btn-sm` ，比如搜索栏的搜索按钮。列表操作栏中的按钮，使用 `btn-xs`。
+`btn-sm`，用于搜索栏的搜索按钮、表单的确定、取消按钮
+
+`btn-xs`，用于列表操作栏中的按钮，
 
 ## 状态
 按钮分为三种状态：
-- 激活状态
-- 禁用状态
-- 加载状态
-
+- 激活状态：表示可操作
+- 禁用状态：表示禁用，hover 上去有禁 pointer 效果，且不可点击
+- 加载状态：表示该操作生效中，有相应文字提示，且不可点击
