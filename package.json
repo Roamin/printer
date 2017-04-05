@@ -1,0 +1,29 @@
+{
+  "name": "bake",
+  "version": "0.0.1",
+  "description": "Baking markdown",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RoamIn/bake.git"
+  },
+  "keywords": [
+    "gulp",
+    "markdown",
+    "html",
+    "document"
+  ],
+  "author": "Live",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RoamIn/bake/issues"
+  },
+  "homepage": "https://github.com/RoamIn/bake#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-inject": "^4.2.0"
+  }
+}
