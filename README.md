@@ -1,7 +1,7 @@
 ## Table of contents
-- [What's included](#Whats included)
-- [Quick start](#Quick start)
-- [Bugs and feature requests](#Bugs and feature requests)
+- [What's included](#Whats-included)
+- [Quick start](#Quick-start)
+- [Bugs and feature requests](#Bugs-and-feature-requests)
 - [License](#License)
 
 ## 目录
