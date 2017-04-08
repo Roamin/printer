@@ -12,7 +12,7 @@
 
 
 
-##Whats included
+## Whats included
 
 
 
@@ -37,7 +37,7 @@
 
 
 
-##Quick start
+## Quick start
 
 
 
@@ -59,7 +59,7 @@
 
 
 
-##Bugs and feature requests
+## Bugs and feature requests
 
 
 
@@ -70,7 +70,7 @@
 
 
 
-##License
+## License
 
 
 
@@ -80,7 +80,7 @@
 
 
 
-##代码结构
+## 代码结构
 
 
 
@@ -93,7 +93,7 @@
 
 
 
-##快速开始
+## 快速开始
 
 
 
@@ -108,7 +108,7 @@
 
 
 
-##Bug-和新特性
+## Bug-和新特性
 
 
 
@@ -122,4 +122,4 @@
 
 
 
-##License
+## License
