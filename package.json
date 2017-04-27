@@ -23,7 +23,8 @@
   },
   "homepage": "https://github.com/RoamIn/bake#readme",
   "devDependencies": {
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
-    "gulp-inject": "^4.2.0"
+    "gulp-markdown": "^1.2.0"
   }
 }
