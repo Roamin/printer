@@ -4,7 +4,8 @@
 
 const del = require('del');
 const gulp = require('gulp');
-const markdown = require('gulp-markdown');
+const rename = require("gulp-rename");
+const html = require('./html');
 
 // clear old files
 gulp.task('clean', () => {
@@ -15,7 +16,8 @@ gulp.task('clean', () => {
 
 gulp.task('convert', () => {
     return gulp.src('input/*.md')
-        .pipe(markdown())
+        .pipe(html())
+        .pipe(rename('doc.html'))
         .pipe(gulp.dest('output/'));
 });
 
