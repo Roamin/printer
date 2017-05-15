@@ -6,24 +6,27 @@
     <link rel="stylesheet" href="../src/css/editor.css">
 </head>
 <body>
-    <header>
-        <div class="navbar">
-            <svg class="icon f-40 float-right" aria-hidden="true">
-                <use xlink:href="#icon-more"></use>
-            </svg>
-        </div>
-    </header>
+<header>
+    <div class="navbar">
+        <svg class="icon f-40 float-right" aria-hidden="true">
+            <use xlink:href="#icon-more"></use>
+        </svg>
+    </div>
+</header>
 
-    <main>
-        <div class="markdown-editor">
-            <textarea placeholder="请输入正文"></textarea>
-        </div>
+<main>
+    <div class="markdown-editor">
+        <textarea id="J_MarkdownContent" placeholder="请输入正文"></textarea>
+    </div>
 
-        <div class="html-preview">
+    <div class="html-preview">
+        <div id="J_HTML"></div>
+    </div>
+</main>
 
-        </div>
-    </main>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.3.1/markdown-it.min.js"></script>
 <script src="../src/iconfont/iconfont.js"></script>
+<script src="../src/js/editor.js"></script>
 </body>
 </html>
