@@ -11,6 +11,8 @@
         border:none;
         resize: none;
 
+        @include custom-scrollbar();
+
         &:focus {
             outline: none;
         }

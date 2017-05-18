@@ -3,8 +3,6 @@
 ##### GET如果觉得不合适，POST 也行，请指出
 
 ##### Request 请求参数
-https://www.baidu.com/
-[https://www.baidu.com/](https://www.baidu.com/)
 
 ```js
 var obj = {

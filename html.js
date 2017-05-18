@@ -3,19 +3,8 @@
 const gutil = require('gulp-util');
 const through = require('through2');
 const MarkdownIt = require('markdown-it');
-const hljs = require('./src/js/highlight');
 
-const markdown = new MarkdownIt({
-    highlight: function (str, lang) {
-        if (lang && hljs.getLanguage(lang)) {
-            try {
-                return hljs.highlight(lang, str).value;
-            } catch (__) {}
-        }
-
-        return ''; // use external default escaping
-    }
-}).use(require('markdown-it-mark'));
+const markdown = new MarkdownIt();
 
 
 module.exports = function (options) {
@@ -38,12 +27,13 @@ module.exports = function (options) {
             '<head>' +
                 '<meta charset="UTF-8">' +
                 '<title>Document</title>' +
-                // '<link rel="stylesheet" type="text/css" href="../src/css/github.css">' +
+                '<link rel="stylesheet" type="text/css" href="../src/css/github.css">' +
             '</head>' +
             '<body>' +
                 '<div class="readme">' +
                     '<div class="markdown-body">' + content + '</div>' +
                 '</div>' +
+                '<div id="toc"></div>' +
             '</body>' +
             '</html>';
 
