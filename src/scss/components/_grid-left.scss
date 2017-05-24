@@ -1,0 +1,11 @@
+.grid-left {
+    width: 260px;
+    border-right: 1px solid $border-color;
+
+    .list-item {
+        padding: 0 15px 0 10px;
+        height: 35px;
+        line-height: 35px;
+        user-select: none;
+    }
+}
