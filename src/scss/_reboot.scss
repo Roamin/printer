@@ -1,15 +1,49 @@
-html {
-    box-sizing: border-box;
-    font-family: sans-serif;
-    line-height: 1.15;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -ms-overflow-style: scrollbar;
-    color: #333;
+@font-face {
+    font-family: RalewayRegular;
+    src: url(../font/raleway-regular.woff) format('woff')
+}
+
+@font-face {
+    font-family: RalewayMedium;
+    src: url(../font/raleway-medium.woff) format('woff')
+}
+
+@font-face {
+    font-family: RalewaySemiBold;
+    src: url(../font/raleway-semibold.woff) format('woff')
+}
+
+@font-face {
+    font-family: RalewayBold;
+    src: url(../font/raleway-bold.woff) format('woff')
+}
+
+@font-face {
+    font-family: RalewayHeavy;
+    src: url(../font/raleway-heavy.woff) format('woff')
+}
+
+:root {
+    font-family: RalewayMedium, Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: inherit;
+    box-sizing: border-box;
+}
+
+body,
+p,
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+textarea {
+    margin: 0; // Remove the margin in Firefox and Safari
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
 }

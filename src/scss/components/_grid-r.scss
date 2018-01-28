@@ -1,0 +1,10 @@
+.grid-r {
+    background-color: #fff;
+
+    .preview {
+        @include custom-scrollbar('y');
+
+        padding: 15px;
+        height: 100%;
+    }
+}

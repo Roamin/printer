@@ -3,21 +3,15 @@
 @import "mixins";
 
 // Reset
-@import "normalize";
 @import "reboot";
-
-// Iconfont
-@import "iconfont";
 
 // Utility classes
 @import "utilities";
 
 // Highlight markdown
-@import "markdown";
+//@import "theme";
 
 // Components
-@import "components/header";
 @import "components/main";
-@import "components/grid-left";
-@import "components/grid-center";
-@import "components/grid-right";
+@import "components/grid-l";
+@import "components/grid-r";

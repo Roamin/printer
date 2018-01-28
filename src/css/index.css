@@ -1,0 +1,98 @@
+@font-face {
+  font-family: RalewayRegular;
+  src: url(../font/raleway-regular.woff) format("woff"); }
+@font-face {
+  font-family: RalewayMedium;
+  src: url(../font/raleway-medium.woff) format("woff"); }
+@font-face {
+  font-family: RalewaySemiBold;
+  src: url(../font/raleway-semibold.woff) format("woff"); }
+@font-face {
+  font-family: RalewayBold;
+  src: url(../font/raleway-bold.woff) format("woff"); }
+@font-face {
+  font-family: RalewayHeavy;
+  src: url(../font/raleway-heavy.woff) format("woff"); }
+:root {
+  font-family: RalewayMedium, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 1.5; }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box; }
+
+body,
+p,
+h1, h2, h3, h4, h5, h6 {
+  margin: 0; }
+
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit; }
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1px;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.08); }
+
+.grid-l {
+  background-color: #fff; }
+  .grid-l textarea {
+    overflow-y: auto;
+    display: block;
+    padding: 15px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    resize: none; }
+    .grid-l textarea::-webkit-scrollbar-track-piece {
+      background-color: #f2f2f2;
+      border-radius: 0; }
+    .grid-l textarea::-webkit-scrollbar {
+      width: 12px;
+      height: 12px; }
+    .grid-l textarea::-webkit-scrollbar-thumb {
+      height: 50px;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+      outline: 2px solid #f2f2f2;
+      outline-offset: -2px;
+      border: 2px solid #f2f2f2; }
+    .grid-l textarea::-webkit-scrollbar-thumb:hover {
+      height: 50px;
+      background-color: #9f9f9f;
+      border-radius: 4px; }
+    .grid-l textarea:focus {
+      outline: none; }
+
+.grid-r {
+  background-color: #fff; }
+  .grid-r .preview {
+    overflow-y: auto;
+    padding: 15px;
+    height: 100%; }
+    .grid-r .preview::-webkit-scrollbar-track-piece {
+      background-color: #f2f2f2;
+      border-radius: 0; }
+    .grid-r .preview::-webkit-scrollbar {
+      width: 12px;
+      height: 12px; }
+    .grid-r .preview::-webkit-scrollbar-thumb {
+      height: 50px;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+      outline: 2px solid #f2f2f2;
+      outline-offset: -2px;
+      border: 2px solid #f2f2f2; }
+    .grid-r .preview::-webkit-scrollbar-thumb:hover {
+      height: 50px;
+      background-color: #9f9f9f;
+      border-radius: 4px; }
+
+/*# sourceMappingURL=index.css.map */

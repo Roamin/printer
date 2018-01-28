@@ -1,5 +1,0 @@
-@for $i from 6 through 20 {
-    .f-#{$i * 2} {
-        font-size: 2px * $i;
-    }
-}
