@@ -1,11 +1,15 @@
+const CONFIG = {
+	size: 10 * 1024 * 1024,
+	mimeTypes: 'image/jpeg'
+};
+
 /**
  * 上传进度
  * @param xhr
  */
 const uploadProgress = xhr => {
     if (xhr.lengthComputable) {
-        const percentComplete = Math.round(xhr.loaded * 100 / xhr.total);
-        console.log('已上传：' + percentComplete);
+        const percentComplete = Math.floor(xhr.loaded / xhr.total * 100);
     }
 };
 
@@ -15,10 +19,11 @@ const uploadProgress = xhr => {
  */
 const uploadComplete = xhr => {
     const res = JSON.parse(xhr.target.response);
+    const $editor = document.querySelector('#J_Editor');
     const startPos = $editor.selectionStart;
     const endPos = $editor.selectionEnd;
 
-    let str = `![demo.jpg](${ res.data.pictureUrl })`;
+    let str = `![demo.jpg](${ res.data })`;
 
     $editor.value = $editor.value.substring(0, startPos)
         + str
@@ -43,24 +48,33 @@ function uploadCanceled(xhr) {
     console.log(xhr);
 }
 
-function uploadFile(file, url) {
-    const fileSize = ( file.size / 1024 / 1024 ).toFixed(2);
-    const fileName = file.name;
-    const fileType = file.type;
+function filter(file) {
+	console.log(file.size, CONFIG.size);
+	if (file.size > CONFIG.size) {
+		return false;
+	}
 
-    const xhr = new XMLHttpRequest();
-    const formData = new FormData();
+	if (CONFIG.mimeTypes.indexOf(file.type) === -1) {
+		return false;
+	}
 
-    formData.append('uploadfile', file);
-
-    xhr.upload.addEventListener('progress', uploadProgress, false);
-    xhr.addEventListener('load', uploadComplete, false);
-    xhr.addEventListener('error', uploadError, false);
-    xhr.addEventListener('abort', uploadCanceled, false);
-    xhr.open('POST', url, true);
-    xhr.send(formData);
+	return true;
 }
 
-export default sMd => {
-    return md.render(sMd);
+export default (file, url) => {
+	if (!filter(file)) {
+		return false;
+	}
+
+	const xhr = new XMLHttpRequest();
+	const formData = new FormData();
+
+	formData.append('uploadfile', file);
+
+	xhr.upload.addEventListener('progress', uploadProgress, false);
+	xhr.addEventListener('load', uploadComplete, false);
+	xhr.addEventListener('error', uploadError, false);
+	xhr.addEventListener('abort', uploadCanceled, false);
+	xhr.open('POST', url, true);
+	xhr.send(formData);
 };

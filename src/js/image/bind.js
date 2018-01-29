@@ -1,3 +1,5 @@
+import upload from './upload'
+
 export default ele => {
     // 进入
     ele.addEventListener('dragenter', function (e) {
@@ -18,7 +20,8 @@ export default ele => {
     ele.addEventListener('drop', function (e) {
         e.preventDefault();
 
-        const dt = e.dataTransfer;
-        uploadFile(dt.files[0], '/api/upload');
+        const file = e.dataTransfer.files[0];
+
+		upload(file, '/api/upload');
     }, false);
 };

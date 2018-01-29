@@ -1,6 +1,5 @@
-import  MarkdownIt from 'markdown-it';
-const md = new MarkdownIt();
+import  bind from './bind';
 
-export default sMd => {
-    return md.render(sMd);
+export default ele => {
+	bind(ele);
 };
