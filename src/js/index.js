@@ -3,8 +3,6 @@ import render from './render';
 const $editor = document.querySelector('#J_Editor');
 const $preview = document.querySelector('#J_Preview');
 
-console.log(123);
-
 $editor.addEventListener('input', function () {
 	const html = render(this.value);
 

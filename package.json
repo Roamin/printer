@@ -4,7 +4,8 @@
   "description": "Markdown editor",
   "main": "index.js",
   "scripts": {
-    "dev": "node server/"
+    "dev": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -17,26 +18,21 @@
   "author": "Live",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RoamIn/bake/issues"
+    "url": "https://github.com/RoamIn/printer/issues"
   },
   "homepage": "https://github.com/RoamIn/bake#readme",
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
     "busboy": "^0.2.14",
-    "del": "^2.2.2",
-    "gulp": "^4.0.0",
-    "gulp-babel": "^7.0.1",
-    "gulp-html-toc": "^1.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-sass": "^3.1.0",
-    "gulp-webpack": "^1.5.0",
+    "clean-webpack-plugin": "^0.1.18",
+    "html-webpack-plugin": "^2.30.1",
     "koa": "^2.4.1",
     "koa-convert": "^1.2.0",
     "koa-static": "^4.0.2",
     "koa-views": "^6.1.3",
     "markdown-it": "^8.3.1",
-    "markdown-it-mark": "^2.0.0",
-    "markdown-toc": "^1.1.0"
+    "uglifyjs-webpack-plugin": "^1.1.6",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1",
+    "webpack-merge": "^4.1.1"
   }
 }
