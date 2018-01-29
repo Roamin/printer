@@ -21,13 +21,11 @@ function mkdirsSync (dirname) {
 }
 
 /**
- * 获取上传文件的后缀名
- * @param  {string} fileName 获取上传文件的后缀名
- * @return {string}          文件后缀名
+ * 获取上传文件 hash
+ * @return {string}          16位 hash
  */
-function getSuffixName (fileName) {
-	let nameList = fileName.split('.')
-	return nameList[nameList.length - 1]
+function getHashName () {
+    return Math.random().toString(16).substr(2)
 }
 
 /**
@@ -43,7 +41,7 @@ function uploadFile (ctx, options) {
 
 	// 获取类型
 	let fileType = options.fileType || 'common'
-	let filePath = path.join(options.path, fileType)
+	let filePath = options.path
 	let mkdirResult = mkdirsSync(filePath)
 
 	return new Promise((resolve, reject) => {
@@ -56,19 +54,18 @@ function uploadFile (ctx, options) {
 
 	// 解析请求文件事件
 	busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
-		let fileName = Math.random().toString(16).substr(2) + '.' + getSuffixName(filename)
-		let _uploadFilePath = path.join(filePath, fileName)
-		let saveTo = path.join(_uploadFilePath)
+		let fileName = getHashName() + path.extname(filename)
+		let savePath = path.join(filePath, fileName)
 
 		// 文件保存到制定路径
-		file.pipe(fs.createWriteStream(saveTo))
+		file.pipe(fs.createWriteStream(savePath))
 
 		// 文件写入事件结束
 		file.on('end', function () {
 			result.success = true
 			result.message = '文件上传成功'
 			result.data = {
-				pictureUrl: `//${ctx.host}/image/${fileType}/${fileName}`
+				pictureUrl: `/cdn/img/${ fileName }`
 			}
 			console.log('文件上传成功！')
 			resolve(result)

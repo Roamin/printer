@@ -1,12 +1,16 @@
-import render from './render';
+'use strict';
 
-const $editor = document.querySelector('#J_Editor');
-const $preview = document.querySelector('#J_Preview');
+var _render = require('./render');
 
-console.log(123);
+var _render2 = _interopRequireDefault(_render);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var $editor = document.querySelector('#J_Editor');
+var $preview = document.querySelector('#J_Preview');
 
 $editor.addEventListener('input', function () {
-	const html = render(this.value);
+	var html = (0, _render2.default)(this.value);
 
 	$preview.innerHTML = html;
 });
@@ -30,17 +34,17 @@ $editor.addEventListener('dragleave', function (e) {
 $editor.addEventListener('drop', function (e) {
 	e.preventDefault();
 
-	const dt = e.dataTransfer;
+	var dt = e.dataTransfer;
 	uploadFile(dt.files[0], '/api/upload');
 }, false);
 
 function uploadFile(file, url) {
-	const fileSize = ( file.size / 1024 / 1024 ).toFixed(2);
-	const fileName = file.name;
-	const fileType = file.type;
+	var fileSize = (file.size / 1024 / 1024).toFixed(2);
+	var fileName = file.name;
+	var fileType = file.type;
 
-	const xhr = new XMLHttpRequest();
-	const formData = new FormData();
+	var xhr = new XMLHttpRequest();
+	var formData = new FormData();
 
 	formData.append('uploadfile', file);
 
@@ -55,20 +59,18 @@ function uploadFile(file, url) {
 //进度把控
 function uploadProgress(xhr) {
 	if (xhr.lengthComputable) {
-		const percentComplete = Math.round(xhr.loaded * 100 / xhr.total);
+		var percentComplete = Math.round(xhr.loaded * 100 / xhr.total);
 		console.log('已上传：' + percentComplete);
 	}
 }
 
 function uploadComplete(xhr) {
-	const res = JSON.parse(xhr.target.response);
+	var res = JSON.parse(xhr.target.response);
 	var startPos = $editor.selectionStart;
 	var endPos = $editor.selectionEnd;
-	let str = `![demo.jpg](${ res.data.pictureUrl })`;
+	var str = '![demo.jpg](' + res.data.pictureUrl + ')';
 
-	$editor.value = $editor.value.substring(0, startPos)
-			+ str
-			+ $editor.value.substring(endPos, $editor.value.length);
+	$editor.value = $editor.value.substring(0, startPos) + str + $editor.value.substring(endPos, $editor.value.length);
 	$editor.selectionStart = startPos + str.length;
 	$editor.selectionEnd = startPos + str.length;
 }

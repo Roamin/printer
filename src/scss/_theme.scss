@@ -1,8 +1,4 @@
-.html-preview b, .html-preview dl dt, .html-preview strong, .html-preview table th {
-    font-weight: 700
-}
-
-.html-preview {
+.preview {
     color: #333;
     line-height: 1.7;
     text-size-adjust: 100%;
@@ -10,250 +6,264 @@
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     word-wrap: break-word;
-}
 
-.html-preview * {
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    font-size: inherit
-}
+    b, dl dt, strong, table th {
+        font-weight: 700;
+    }
 
-.html-preview hr:after {
-    clear: both
-}
+    * {
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        font-size: inherit;
+    }
 
-.html-preview .muted-link, .html-preview .muted-link:visited, .muted-link, .muted-link:visited {
-    color: #737373
-}
+    hr:after {
+        clear: both;
+    }
 
-.html-preview .muted-link:focus, .html-preview .muted-link:hover, .muted-link:focus, .muted-link:hover {
-    text-decoration: none;
-    color: #3884ff
-}
+    .muted-link {
+        color: #737373;
+        &:visited {
+            color: #737373;
+        }
+        &:focus, &:hover, &:focus, &:hover {
+            text-decoration: none;
+            color: #3884ff;
+        }
+    }
 
-.html-preview .underlined-link, .html-preview .underlined-link:focus, .html-preview .underlined-link:hover, .underlined-link, .underlined-link:focus, .underlined-link:hover {
-    text-decoration: underline;
-    color: inherit
-}
+    .underlined-link {
+        text-decoration: underline;
+        color: inherit;
+        &:focus, &:hover, &:focus, &:hover {
+            text-decoration: underline;
+            color: inherit;
+        }
+        &:visited {
+            color: inherit;
+        }
+    }
 
-.html-preview .underlined-link:visited, .underlined-link:visited {
-    color: inherit
-}
+    > {
+        :first-child {
+            margin-top: 0 !important;
+        }
+        :last-child {
+            margin-bottom: 0 !important;
+        }
+    }
 
-.html-preview > :first-child {
-    margin-top: 0 !important
-}
+    blockquote, code, figure, img, pre, table, tr {
+        page-break-inside: avoid;
+    }
 
-.html-preview > :last-child {
-    margin-bottom: 0 !important
-}
+    h2, h3, h4, h5, p {
+        orphans: 3;
+        widows: 3;
+    }
 
-.html-preview blockquote, .html-preview code, .html-preview figure, .html-preview img, .html-preview pre, .html-preview table, .html-preview tr {
-    page-break-inside: avoid
-}
+    h1, h2, h3, h4, h5 {
+        page-break-after: avoid;
+    }
 
-.html-preview h2, .html-preview h3, .html-preview h4, .html-preview h5, .html-preview p {
-    orphans: 3;
-    widows: 3
-}
+    em {
+        font-style: italic;
+    }
 
-.html-preview h1, .html-preview h2, .html-preview h3, .html-preview h4, .html-preview h5 {
-    page-break-after: avoid
-}
+    blockquote, dl, ol, p, table, ul {
+        margin-top: 0;
+        margin-bottom: 0.85em;
+    }
 
-.html-preview em {
-    font-style: italic
-}
+    a {
+        color: #4183c4;
+        text-decoration: none;
+        background: 0 0;
+        &:active, &:focus, &:hover {
+            outline: 0;
+            text-decoration: underline;
+        }
+    }
 
-.html-preview blockquote, .html-preview dl, .html-preview ol, .html-preview p, .html-preview table, .html-preview ul {
-    margin-top: 0;
-    margin-bottom: .85em
-}
+    img {
+        border: 0;
+        max-width: 100%;
+    }
 
-.html-preview a {
-    color: #4183c4;
-    text-decoration: none;
-    background: 0 0
-}
+    hr {
+        height: 4px;
+        padding: 0;
+        margin: 1.7em 0;
+        overflow: hidden;
+        background-color: #e7e7e7;
+        border: none;
+        &:after, &:before {
+            display: table;
+            content: " ";
+        }
+    }
 
-.html-preview a:active, .html-preview a:focus, .html-preview a:hover {
-    outline: 0;
-    text-decoration: underline
-}
+    h1, h2, h3, h4, h5, h6 {
+        margin-top: 1.275em;
+        margin-bottom: .85em;
+        font-weight: 700;
+    }
 
-.html-preview img {
-    border: 0;
-    max-width: 100%
-}
+    h1 {
+        font-size: 2em;
+    }
 
-.html-preview hr {
-    height: 4px;
-    padding: 0;
-    margin: 1.7em 0;
-    overflow: hidden;
-    background-color: #e7e7e7;
-    border: none
-}
+    h2 {
+        font-size: 1.75em;
+    }
 
-.html-preview hr:after, .html-preview hr:before {
-    display: table;
-    content: " "
-}
+    h3 {
+        font-size: 1.5em;
+    }
 
-.html-preview h1, .html-preview h2, .html-preview h3, .html-preview h4, .html-preview h5, .html-preview h6 {
-    margin-top: 1.275em;
-    margin-bottom: .85em;
-    font-weight: 700
-}
+    h4 {
+        font-size: 1.25em;
+    }
 
-.html-preview h1 {
-    font-size: 2em
-}
+    h5 {
+        font-size: 1em;
+    }
 
-.html-preview h2 {
-    font-size: 1.75em
-}
+    h6 {
+        font-size: 1em;
+        color: #777;
+    }
 
-.html-preview h3 {
-    font-size: 1.5em
-}
+    code {
+        font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        direction: ltr;
+        border: none;
+        color: inherit;
+    }
 
-.html-preview h4 {
-    font-size: 1.25em
-}
+    pre {
+        font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        direction: ltr;
+        border: none;
+        color: inherit;
+        overflow: auto;
+        word-wrap: normal;
+        margin: 0 0 1.275em;
+        padding: .85em 1em;
+        background: #f7f7f7;
+        > code {
+            display: inline;
+            max-width: initial;
+            padding: 0;
+            margin: 0;
+            overflow: initial;
+            line-height: inherit;
+            font-size: .85em;
+            white-space: pre;
+            background: 0 0;
+            &:after, &:before {
+                content: normal;
+            }
+        }
+    }
 
-.html-preview h5 {
-    font-size: 1em
-}
+    code {
+        padding: .2em;
+        margin: 0;
+        font-size: .85em;
+        background-color: #f7f7f7;
+        &:after, &:before {
+            letter-spacing: -.2em;
+            content: " ";
+        }
+    }
 
-.html-preview h6 {
-    font-size: 1em;
-    color: #777
-}
+    table {
+        display: table;
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+        overflow: auto;
+        td, th {
+            padding: 6px 13px;
+            border: 1px solid #ddd;
+        }
+        tr {
+            background-color: #fff;
+            border-top: 1px solid #ccc;
+            &:nth-child(2n) {
+                background-color: #f8f8f8;
+            }
+        }
+    }
 
-.html-preview code, .html-preview pre {
-    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    direction: ltr;
-    border: none;
-    color: inherit
-}
+    ol, ul {
+        padding: 0 0 0 2em;
+        margin: 0 0 0.85em;
+    }
 
-.html-preview pre {
-    overflow: auto;
-    word-wrap: normal;
-    margin: 0 0 1.275em;
-    padding: .85em 1em;
-    background: #f7f7f7
-}
+    ol {
+        ol, ul {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
 
-.html-preview pre > code {
-    display: inline;
-    max-width: initial;
-    padding: 0;
-    margin: 0;
-    overflow: initial;
-    line-height: inherit;
-    font-size: .85em;
-    white-space: pre;
-    background: 0 0
-}
+    ul {
+        ol, ul {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    }
 
-.html-preview pre > code:after, .html-preview pre > code:before {
-    content: normal
-}
+    ol ol {
+        list-style-type: lower-roman;
+    }
 
-.html-preview code {
-    padding: .2em;
-    margin: 0;
-    font-size: .85em;
-    background-color: #f7f7f7
-}
+    blockquote {
+        margin: 0 0 .85em;
+        padding: 0 15px;
+        color: #858585;
+        border-left: 4px solid #e5e5e5;
+    }
 
-.html-preview code:after, .html-preview code:before {
-    letter-spacing: -.2em;
-    content: "\00a0"
-}
+    dd, .pagehead .menu li:first-child > a {
+        margin-left: 0;
+    }
 
-.html-preview table {
-    display: table;
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    overflow: auto
-}
+    blockquote {
+        &:first-child {
+            margin-top: 0;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
 
-.html-preview table td, .html-preview table th {
-    padding: 6px 13px;
-    border: 1px solid #ddd
-}
+    dl {
+        padding: 0;
+        dt {
+            padding: 0;
+            margin-top: .85em;
+            font-style: italic;
+        }
+        dd {
+            padding: 0 .85em;
+            margin-bottom: 0.85em;
+        }
+    }
 
-.html-preview table tr {
-    background-color: #fff;
-    border-top: 1px solid #ccc
-}
+    .contains-task-list, .task-list {
+        padding: 0 0 0 .8em;
+        list-style: none;
+    }
 
-.html-preview table tr:nth-child(2n) {
-    background-color: #f8f8f8
-}
+    .contains-task-list .task-list-item-checkbox, .task-list .task-list-item-checkbox {
+        margin: 0 .2em .25em 0;
+        vertical-align: middle;
+    }
 
-.html-preview ol, .html-preview ul {
-    padding: 0 0 0 2em;
-    margin: 0 0 .85em
-}
-
-.html-preview ol ol, .html-preview ol ul, .html-preview ul ol, .html-preview ul ul {
-    margin-top: 0;
-    margin-bottom: 0
-}
-
-.html-preview ol ol {
-    list-style-type: lower-roman
-}
-
-.html-preview blockquote {
-    margin: 0 0 .85em;
-    padding: 0 15px;
-    color: #858585;
-    border-left: 4px solid #e5e5e5
-}
-
-.html-preview dd, .pagehead .menu li:first-child > a {
-    margin-left: 0
-}
-
-.html-preview blockquote:first-child {
-    margin-top: 0
-}
-
-.html-preview blockquote:last-child {
-    margin-bottom: 0
-}
-
-.html-preview dl {
-    padding: 0
-}
-
-.html-preview dl dt {
-    padding: 0;
-    margin-top: .85em;
-    font-style: italic
-}
-
-.html-preview dl dd {
-    padding: 0 .85em;
-    margin-bottom: .85em
-}
-
-.html-preview .contains-task-list, .html-preview .task-list {
-    padding: 0 0 0 .8em;
-    list-style: none
-}
-
-.html-preview .contains-task-list .task-list-item-checkbox, .html-preview .task-list .task-list-item-checkbox {
-    margin: 0 .2em .25em 0;
-    vertical-align: middle
-}
-
-.html-preview pre {
-    border-radius: 4px
+    pre {
+        border-radius: 4px;
+    }
 }

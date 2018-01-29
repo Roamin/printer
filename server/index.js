@@ -28,7 +28,6 @@ app.use(async (ctx) => {
 
 		// 上传文件事件
 		result = await uploadFile(ctx, {
-			fileType: 'album',
 			path: serverFilePath
 		});
 
