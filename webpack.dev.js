@@ -3,9 +3,14 @@ const common = require('./webpack.common.js');
 const webpack = require('webpack');
 
 module.exports = merge(common, {
+	module: {
+		rules: [
+			{ test: /\.css$/, use: 'css-loader' }
+		]
+	},
 	devtool: 'inline-source-map',
 	devServer: {
-		contentBase: './',
+		contentBase: './view/',
 		hot: true,
 		port: 8080,
 		before: app => {
