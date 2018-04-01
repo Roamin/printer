@@ -4,8 +4,8 @@ const webpack = require('webpack');
 
 module.exports = merge(common, {
 	module: {
-		rules: [
-			{ test: /\.css$/, use: 'css-loader' }
+		loaders: [
+			{test: /\.css$/, loader: "style-loader!css-loader"}
 		]
 	},
 	devtool: 'inline-source-map',

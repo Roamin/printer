@@ -1,4 +1,5 @@
 const config = {
+	id: 'printer',
 	menu: [
 			'ul'
 	]
