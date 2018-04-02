@@ -1,3 +1,5 @@
+import { setSelection } from "../../util/selection";
+
 const CONFIG = {
 	size: 10 * 1024 * 1024,
 	mimeTypes: 'image/jpeg'
@@ -25,11 +27,7 @@ const uploadComplete = xhr => {
 
     let str = `![demo.jpg](${ res.data })`;
 
-    $editor.value = $editor.value.substring(0, startPos)
-        + str
-        + $editor.value.substring(endPos, $editor.value.length);
-    $editor.selectionStart = startPos + str.length;
-    $editor.selectionEnd = startPos + str.length;
+	setSelection(str)
 };
 
 /**

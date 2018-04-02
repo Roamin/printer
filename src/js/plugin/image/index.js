@@ -1,5 +1,5 @@
 import  bind from './bind';
 
-export default context => {
-	bind(context.$editor);
+export default function () {
+	bind(this.$editor);
 };

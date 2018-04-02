@@ -1,5 +1,5 @@
 import image from './image/index'
 
-export default (context) => {
-	image(context)
+export default function () {
+	image.call(this)
 }
