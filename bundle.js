@@ -1678,7 +1678,7 @@ function MarkdownIt(presetName, options) {
    *
    * Link validation function. CommonMark allows too much in links. By default
    * we disable `javascript:`, `vbscript:`, `file:` schemas, and almost all `data:...` schemas
-   * except some embedded image types.
+   * except some embedded img types.
    *
    * You can change this behaviour:
    *
@@ -3083,7 +3083,7 @@ Renderer.prototype.renderInline = function (tokens, options, env) {
  * - options (Object): params of parser instance
  * - env (Object): additional data from parsed input (references, for example)
  *
- * Special kludge for image `alt` attributes to conform CommonMark spec.
+ * Special kludge for img `alt` attributes to conform CommonMark spec.
  * Don't try to use it! Spec requires to show `alt` content with stripped markup,
  * instead of simple escaping.
  **/
@@ -6323,7 +6323,7 @@ module.exports = function link(state, silent) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-// Process ![image](<src> "title")
+// Process ![img](<src> "title")
 
 
 

@@ -1,5 +1,9 @@
-import image from './image/index'
+import Img from './img/index'
 
-export default function () {
-	image.call(this)
+class Plugin {
+	constructor (editor) {
+		this.image = new Img(editor)
+	}
 }
+
+export default Plugin

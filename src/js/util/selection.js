@@ -1,13 +1,18 @@
 let $editor = null
 
-export function setSelection (insertStr) {
-	const oldValue = $editor.value
-	const endPos = $editor.selectionEnd
-	const startPos = $editor.selectionStart
+class API {
+	constructor (editor) {
+		this.editor = editor;
+	}
 
-	$editor.value = oldValue.substring(0, startPos) + insertStr + oldValue.substring(endPos, oldValue.length)
+	set (insertStr) {
+		const $editor = this.editor.$editor
+		const oldValue = $editor.value
+		const endPos = $editor.selectionEnd
+		const startPos = $editor.selectionStart
+
+		$editor.value = oldValue.substring(0, startPos) + insertStr + oldValue.substring(endPos, oldValue.length)
+	}
 }
 
-export function init($el) {
-    $editor = $el
-}
+export default API

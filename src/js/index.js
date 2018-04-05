@@ -1,7 +1,7 @@
 import defaultConfig from './config'
 import render from './render'
-import plugin from './plugin'
-import { init as selection } from './util/selection'
+import Plugin from './plugin'
+import SelectionAPI from './util/selection'
 
 class Editor {
 	constructor (config) {
@@ -11,8 +11,8 @@ class Editor {
 		this.$preview = document.getElementById('J_Preview')
 
 		this.bind()
-		plugin.call(this)
-		selection(this.$editor)
+		this.plugin = new Plugin(this)
+		this.selection = new SelectionAPI(this)
 
 		console.log(this.getUID(this.config.id))
 	}
@@ -34,18 +34,6 @@ class Editor {
 
 	preview () {
 		this.$preview.innerHTML = render(this.$editor.value)
-	}
-
-	getSelection () {
-
-	}
-
-	setSelection (insertStr) {
-		const oldValue = this.$editor.value
-		const endPos = this.$editor.selectionEnd
-		const startPos = this.$editor.selectionStart
-
-		this.$editor.value = oldValue.substring(0, startPos) + insertStr + oldValue.substring(endPos, oldValue.length)
 	}
 }
 
