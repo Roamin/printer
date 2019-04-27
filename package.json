@@ -65,8 +65,9 @@
     "workbox-webpack-plugin": "4.2.0"
   },
   "scripts": {
-    "start": "electron .",
-    "dev": "node scripts/start.js",
+    "start": "concurrently \"npm run start:react\" \"npm run start:electron\"",
+    "start:react": "cross-env BROWSER=none node scripts/start.js",
+    "start:electron": "wait-on http://localhost:3000 && electron .",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
@@ -136,6 +137,9 @@
     ]
   },
   "devDependencies": {
-    "devtron": "^1.4.0"
+    "concurrently": "^4.1.0",
+    "cross-env": "^5.2.0",
+    "devtron": "^1.4.0",
+    "wait-on": "^3.2.0"
   }
 }
