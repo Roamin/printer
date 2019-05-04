@@ -1,6 +1,15 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "baseUrl": "src",
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "scss/*": [
+        "./styles/*"
+      ]
+    },
+    "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
@@ -21,5 +30,8 @@
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

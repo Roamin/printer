@@ -1,0 +1,21 @@
+.workspace__article {
+  padding: 0 30px 28px;
+
+  header {
+    position: sticky;
+    top: 0;
+    padding: 16px 0;
+    text-align: right;
+    background-color: rgba(#f3f5f8, 0.9);
+
+    .button {
+      color: #7d91a5;
+      border-color: #e5e8ec !important;
+      background-color: #e5e8ec;
+    }
+  }
+
+  .article-body {
+    white-space: pre-wrap;
+  }
+}

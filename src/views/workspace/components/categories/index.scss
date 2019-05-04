@@ -1,0 +1,29 @@
+.workspace__categories {
+  padding: 28px 26px;
+  color: #768191;
+
+  .category {
+    margin-bottom: 16px;
+    line-height: 35px;
+
+    &.active,
+    &:hover {
+      color: #2b50ed;
+
+      .category-icon {
+        color: #2b50ed;
+      }
+    }
+
+    .category-icon {
+      margin-right: 24px;
+      font-size: 18px;
+      color: #bac3d0;
+      vertical-align: middle;
+    }
+
+    .category-name {
+      vertical-align: middle;
+    }
+  }
+}

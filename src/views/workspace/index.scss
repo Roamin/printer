@@ -1,0 +1,29 @@
+.layout-workspace {
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+  background-color: #f7f7f7;
+
+  &__categories,
+  &__articles,
+  &__article {
+    flex-shrink: 0;
+    overflow: auto;
+  }
+
+  &__categories {
+    width: 270px;
+    background-color: #f3f5f8;
+  }
+
+  &__articles {
+    position: relative;
+    width: 340px;
+    background-color: #fff;
+  }
+
+  &__article {
+    flex: auto;
+    background-color: #f3f5f8;
+  }
+}
