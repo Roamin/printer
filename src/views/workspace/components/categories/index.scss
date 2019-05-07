@@ -1,22 +1,41 @@
-.workspace__categories {
-  padding: 28px 26px;
-  color: #768191;
+.workspace-sidebar {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  &__header,
+  &__footer {
+    flex-shrink: 0;
+  }
+
+  &__body {
+    flex: auto;
+    overflow: auto;
+  }
+
+  .categories {
+    color: #768191;
+  }
 
   .category {
-    margin-bottom: 16px;
-    line-height: 35px;
+    padding: 0 10px 0 16px;
+    line-height: 36px;
+    border-left: 3px solid transparent;
 
     &.active,
     &:hover {
+      background-color: #f7f7f7;
+    }
+    &.active {
+      border-color: #2b50ed;
       color: #2b50ed;
-
       .category-icon {
         color: #2b50ed;
       }
     }
 
     .category-icon {
-      margin-right: 24px;
+      margin-right: 10px;
       font-size: 18px;
       color: #bac3d0;
       vertical-align: middle;

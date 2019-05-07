@@ -1,16 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 
-import routes from '@/routes'
-import RouterView from '@/components/router-view'
-import Sidebar from '@/components/sidebar'
+import routes from "@/routes";
+import RouterView from "@/components/router-view";
 
-import './index.scss'
+import "./index.scss";
 
-ReactDOM.render(<BrowserRouter>
-    <Sidebar />
+ReactDOM.render(
+  <BrowserRouter>
     <main>
-        <RouterView routes={routes} />
+      <RouterView routes={routes} />
     </main>
-</BrowserRouter>, document.getElementById('root'))
+  </BrowserRouter>,
+  document.getElementById("root")
+);

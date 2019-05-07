@@ -11,14 +11,19 @@
     overflow: auto;
   }
 
+  &__articles,
+  &__article {
+    border-left: 1px solid $border-color;
+  }
+
   &__categories {
-    width: 270px;
-    background-color: #f3f5f8;
+    width: 200px;
+    background-color: #fefefe;
   }
 
   &__articles {
     position: relative;
-    width: 340px;
+    width: 300px;
     background-color: #fff;
   }
 
