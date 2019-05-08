@@ -9,57 +9,58 @@ if (process.mas) app.setName('Electron APIs')
 let mainWindow = null
 
 function initialize() {
-    makeSingleInstance()
+  makeSingleInstance()
 
-    //   loadDemos()
+  //   loadDemos()
 
-    function createWindow() {
-        const windowOptions = {
-            width: 1080,
-            minWidth: 680,
-            height: 840,
-            title: app.getName(),
-            webPreferences: {
-                nodeIntegration: true
-            }
-        }
-
-        mainWindow = new BrowserWindow(windowOptions)
-
-        if (isDev) {
-            mainWindow.loadURL('http://localhost:3000/')
-        } else {
-            mainWindow.loadURL(path.join('file://', __dirname, '/build/index.html'))
-
-        }
-
-        // Launch fullscreen with DevTools open, usage: npm run debug
-        if (debug) {
-            mainWindow.webContents.openDevTools()
-            mainWindow.maximize()
-            require('devtron').install()
-        }
-
-        mainWindow.on('closed', () => {
-            mainWindow = null
-        })
+  function createWindow() {
+    const windowOptions = {
+      width: 1080,
+      minWidth: 680,
+      height: 720,
+      title: app.getName(),
+      webPreferences: {
+        nodeIntegration: true
+      }
     }
 
-    app.on('ready', () => {
-        createWindow()
-    })
+    mainWindow = new BrowserWindow(windowOptions)
 
-    app.on('window-all-closed', () => {
-        if (process.platform !== 'darwin') {
-            app.quit()
-        }
-    })
+    if (isDev) {
+      mainWindow.loadURL('http://localhost:3000/')
+    } else {
+      mainWindow.loadURL(
+        path.join('file://', __dirname, '/pages/build/index.html')
+      )
+    }
 
-    app.on('activate', () => {
-        if (mainWindow === null) {
-            createWindow()
-        }
+    // Launch fullscreen with DevTools open, usage: npm run debug
+    if (debug) {
+      mainWindow.webContents.openDevTools()
+      mainWindow.maximize()
+      require('devtron').install()
+    }
+
+    mainWindow.on('closed', () => {
+      mainWindow = null
     })
+  }
+
+  app.on('ready', () => {
+    createWindow()
+  })
+
+  app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+      app.quit()
+    }
+  })
+
+  app.on('activate', () => {
+    if (mainWindow === null) {
+      createWindow()
+    }
+  })
 }
 
 // Make this app a single instance app.
@@ -70,16 +71,16 @@ function initialize() {
 // Returns true if the current version of the app should quit instead of
 // launching.
 function makeSingleInstance() {
-    if (process.mas) return
+  if (process.mas) return
 
-    app.requestSingleInstanceLock()
+  app.requestSingleInstanceLock()
 
-    app.on('second-instance', () => {
-        if (mainWindow) {
-            if (mainWindow.isMinimized()) mainWindow.restore()
-            mainWindow.focus()
-        }
-    })
+  app.on('second-instance', () => {
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+    }
+  })
 }
 
 // Require each JS file in the main-process dir
