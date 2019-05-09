@@ -2,9 +2,7 @@ import React from 'react'
 
 import './index.scss'
 
-interface ArticleProps {
-
-}
+interface ArticleProps {}
 
 class Article extends React.Component<ArticleProps> {
   state = {
@@ -36,10 +34,10 @@ class Article extends React.Component<ArticleProps> {
   render() {
     return (
       <section className="workspace__article">
-        <header>
-
-        </header>
-        <div className="article-body">{this.state.content}</div>
+        <header />
+        <div className="article-body">
+          {this.state.content}
+        </div>
       </section>
     )
   }

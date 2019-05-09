@@ -1,6 +1,8 @@
-export default function typeOf(obj) {
+export default function typeOf(obj: any): any {
   const toString = Object.prototype.toString
-  const map = {
+  const map: {
+    [key: string]: string
+  } = {
     '[object Boolean]': 'boolean',
     '[object Number]': 'number',
     '[object String]': 'string',

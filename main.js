@@ -1,3 +1,4 @@
+const glob = require('glob')
 const path = require('path')
 const isDev = require('electron-is-dev')
 const { app, BrowserWindow } = require('electron')
@@ -11,7 +12,9 @@ let mainWindow = null
 function initialize() {
   makeSingleInstance()
 
-  //   loadDemos()
+  loadProcess()
+
+  console.log(app.getLocale())
 
   function createWindow() {
     const windowOptions = {
@@ -19,8 +22,10 @@ function initialize() {
       minWidth: 680,
       height: 720,
       title: app.getName(),
+      titleBarStyle: 'hidden',
       webPreferences: {
-        nodeIntegration: true
+        nodeIntegration: true,
+        preload: path.join(__dirname, './pages/public/renderer.js') // 预加载的 js 文件内仍可以使用 Nodejs 的 API
       }
     }
 
@@ -84,9 +89,12 @@ function makeSingleInstance() {
 }
 
 // Require each JS file in the main-process dir
-// function loadDemos () {
-//   const files = glob.sync(path.join(__dirname, 'main-process/**/*.js'))
-//   files.forEach((file) => { require(file) })
-// }
+function loadProcess() {
+  const files = glob.sync(path.join(__dirname, 'process/**/*.js'))
+
+  files.forEach(file => {
+    require(file)
+  })
+}
 
 initialize()

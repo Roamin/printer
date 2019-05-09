@@ -1,6 +1,8 @@
 import React from 'react'
 import classNames from 'classnames'
 
+import fetch from 'utils/fetch'
+
 import Button from 'components/button'
 import Icon from 'components/icon'
 
@@ -62,6 +64,10 @@ class Categories extends React.Component<CategoriesProps> {
     ]
   }
 
+  sync() {
+    fetch('syncAccount')
+  }
+
   render() {
     const { className, onClick, style } = this.props
     const classString = classNames({
@@ -101,7 +107,7 @@ class Categories extends React.Component<CategoriesProps> {
           </section>
         </div>
         <footer className="workspace-sidebar__footer">
-          <Button className="sync-setting" icon="sync" />
+          <Button className="sync-setting" icon="sync" onClick={this.sync} />
           <Button className="btn-setting" icon="setting" />
         </footer>
       </aside>
