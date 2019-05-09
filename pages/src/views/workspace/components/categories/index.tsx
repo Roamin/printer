@@ -65,7 +65,9 @@ class Categories extends React.Component<CategoriesProps> {
   }
 
   sync() {
-    fetch('syncAccount')
+    fetch('syncAccount').then(data => {
+      console.log(JSON.stringify(data, null, 4))
+    })
   }
 
   render() {

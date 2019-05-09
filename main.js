@@ -25,7 +25,7 @@ function initialize() {
       titleBarStyle: 'hidden',
       webPreferences: {
         nodeIntegration: true,
-        preload: path.join(__dirname, './pages/public/renderer.js') // 预加载的 js 文件内仍可以使用 Nodejs 的 API
+        preload: path.join(__dirname, '/pages/public/renderer.js') // 预加载的 js 文件内仍可以使用 Nodejs 的 API
       }
     }
 
@@ -90,7 +90,7 @@ function makeSingleInstance() {
 
 // Require each JS file in the main-process dir
 function loadProcess() {
-  const files = glob.sync(path.join(__dirname, 'process/**/*.js'))
+  const files = glob.sync(path.join(__dirname, 'client/**/*.js'))
 
   files.forEach(file => {
     require(file)

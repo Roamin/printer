@@ -1,19 +1,21 @@
 import api from 'api'
 
+const { ipcRenderer } = (window as any).electron
+
 export default function(name: string, data?: any) {
-  console.log(window)
-  const { ipcRenderer } = (window as any).electron
   const { async = false, channel } = api[name]
 
-  console.log(async, channel)
+  return new Promise(resolve => {
+    if (async) {
+      ipcRenderer.once(`${channel}-reply`, (event: any, arg: any) => {
+        resolve(arg)
+      })
 
-  if (async) {
-    ipcRenderer.on(`${channel}-reply`, (event: any, arg: any) => {
-      console.log(arg)
-    })
+      ipcRenderer.send(channel, data)
+    } else {
+      const reply = ipcRenderer.sendSync(channel, data)
 
-    ipcRenderer.send(channel, data)
-  } else {
-    ipcRenderer.sendSync(channel, data)
-  }
+      resolve(reply)
+    }
+  })
 }
