@@ -73,11 +73,11 @@
   },
   "scripts": {
     "start": "concurrently \"npm run start:react\" \"npm run start:electron\"",
-    "start:react": "cross-env BROWSER=none node pages/scripts/start.js",
+    "start:react": "cross-env BROWSER=none node app/scripts/start.js",
     "start:electron": "wait-on http://localhost:3000 && electron . --debug",
-    "dev": "node pages/scripts/start.js",
-    "build": "node pages/scripts/build.js",
-    "test": "node pages/scripts/test.js"
+    "dev": "node app/scripts/start.js",
+    "build": "node app/scripts/build.js",
+    "test": "node app/scripts/test.js"
   },
   "eslintConfig": {
     "extends": "react-app"

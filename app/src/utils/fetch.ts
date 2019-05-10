@@ -1,4 +1,4 @@
-import api from 'api'
+const api = require('utils/../../api')
 
 const { ipcRenderer } = (window as any).electron
 
@@ -7,7 +7,7 @@ export default function(name: string, data?: any) {
 
   return new Promise(resolve => {
     if (async) {
-      ipcRenderer.once(`${channel}-reply`, (event: any, arg: any) => {
+      ipcRenderer.once(`${channel}__reply`, (event: any, arg: any) => {
         resolve(arg)
       })
 
