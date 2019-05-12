@@ -70,17 +70,19 @@ module.exports = {
   appBuild: resolveApp('app/build'),
   appPublic: resolveApp('app/public'),
   appHtml: resolveApp('app/public/index.html'),
-  appIndexJs: resolveModule(resolveApp, 'app/src/index'),
+  appIndexJs: resolveModule(resolveApp, 'app/renderer/index'),
   appPackageJson: resolveApp('package.json'),
-  appSrc: resolveApp('app/src'),
+  appSrc: resolveApp('app/renderer'),
   appTsConfig: resolveApp('app/tsconfig.json'),
   appJsConfig: resolveApp('app/jsconfig.json'),
   yarnLockFile: resolveApp('yarn.lock'),
-  testsSetup: resolveModule(resolveApp, 'app/src/setupTests'),
-  proxySetup: resolveApp('app/src/setupProxy.js'),
+  testsSetup: resolveModule(resolveApp, 'app/renderer/setupTests'),
+  proxySetup: resolveApp('app/renderer/setupProxy.js'),
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
-  servedPath: getServedPath(resolveApp('package.json'))
+  servedPath: getServedPath(resolveApp('package.json')),
+  appMainEntry: resolveApp('app/main/main.ts'),
+  appMain: resolveApp('app/main')
 }
 
 module.exports.moduleFileExtensions = moduleFileExtensions
