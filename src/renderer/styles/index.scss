@@ -1,0 +1,15 @@
+@import "./variables";
+@import "./mixins";
+@import "./animations";
+
+// Normalize
+@import "./normalize";
+
+#root {
+  display: flex;
+  height: 100vh;
+}
+
+body {
+  -webkit-app-region: drag;
+}
