@@ -3,19 +3,20 @@
     <header>
       <div class="handler-bar">
         <div class="button-group">
-          <Button class="button" icon="add"/>
+          <Button class="button"
+                  icon="add" />
         </div>
       </div>
       <div class="search-bar">
-        <Search class="search-input"/>
+        <Search class="search-input" />
       </div>
     </header>
     <ul class="articles">
-      <li class="article" v-for="(article, index) in articles" :key="index">
-        <h3 class="article-title">{{ article.title }}</h3>
-        <p
-          class="article-summary"
-        >我外婆说，我舅舅小时候性子很揪。跟我外公吵完架，就把眼镜布塞眼镜盒里，拿几本书塞进书包，气哼哼的出门，在门口还会吼一声：我这就去美国！再也不回来了！</p>
+      <li class="article"
+          v-for="(article, index) in articles"
+          :key="index">
+        <h3 class="article-title">{{ article.name }}</h3>
+        <p class="article-summary">我外婆说，我舅舅小时候性子很揪。跟我外公吵完架，就把眼镜布塞眼镜盒里，拿几本书塞进书包，气哼哼的出门，在门口还会吼一声：我这就去美国！再也不回来了！</p>
         <div>
           <time class="article-create-time">{{ article.creteTime }}</time>
         </div>
@@ -34,35 +35,15 @@ export default {
     Button,
     Search
   },
+  props: {
+    articles: {
+      type: Array,
+      default: () => []
+    }
+  },
   data () {
     return {
-      articles: [
-        {
-          id: 1,
-          title: '匆匆',
-          creteTime: '2012-03-12 08:41:55'
-        },
-        {
-          id: 2,
-          title: '海角天涯，招之即来',
-          creteTime: '2012-03-12 08:41:55'
-        },
-        {
-          id: 3,
-          title: '盗墓笔记',
-          creteTime: '2012-03-12 08:41:55'
-        },
-        {
-          id: 4,
-          title: '沙海',
-          creteTime: '2012-03-12 08:41:55'
-        },
-        {
-          id: 5,
-          title: '鬼吹灯',
-          creteTime: '2012-03-12 08:41:55'
-        }
-      ]
+
     }
   }
 }

@@ -1,13 +1,14 @@
 import Vue from 'vue'
-import axios from 'axios'
+
+import './styles/index.scss'
 
 import router from './router'
 import store from './store'
 
-import './styles/index.scss'
+import fetch from '@/utils/fetch'
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
-Vue.http = Vue.prototype.$http = axios
+Vue.http = Vue.prototype.$fetch = fetch
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

@@ -1,6 +1,6 @@
 <template>
   <section class="workspace__article">
-    <header/>
+    <header />
     <div class="article-body">{{ content }}</div>
   </section>
 </template>

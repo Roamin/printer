@@ -1,7 +1,8 @@
 <template>
   <button :class="classnames">
-    <Icon :type="icon" v-if="icon"/>
-    <slot/>
+    <Icon :type="icon"
+          v-if="icon" />
+    <slot />
   </button>
 </template>
 
@@ -19,6 +20,10 @@ export default {
     icon: {
       type: String,
       default: false
+    },
+    circle: {
+      type: [Boolean, Number],
+      default: false
     }
   },
   data () {
@@ -29,7 +34,10 @@ export default {
   computed: {
     classnames () {
       return [
-        `${pefixCls}`
+        `${pefixCls}`,
+        {
+          'circle': this.circle
+        }
       ]
     }
   },
