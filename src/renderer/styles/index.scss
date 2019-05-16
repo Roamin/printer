@@ -6,10 +6,21 @@
 @import "./normalize";
 
 #root {
-  display: flex;
   height: 100vh;
 }
 
 body {
   -webkit-app-region: drag;
+
+  // &::before {
+  //   content: "";
+  //   z-index: -1;
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   background: url(https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-439218.jpg) 0 / cover;
+  //   filter: blur(12px);
+  // }
 }

@@ -1,14 +1,18 @@
-body {
-  margin: 0;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+html {
   color: $text-color;
   font-size: $font-size-base;
   font-weight: $font-weight-normal;
   font-family: $font-family;
   line-height: $line-height-base;
   background-color: $body-background;
+  font-variant: tabular-nums;
+  line-height: 1.5;
+  background-color: #fff;
+  font-feature-settings: "tnum", "tnum";
+}
+
+body {
+  margin: 0;
 }
 
 *,

@@ -1,28 +1,17 @@
 <template>
-  <main class="layout-workspace">
-    <aside class="layout-workspace__aside aside">
-      <header class="aside__header">
-
-      </header>
-      <div class="aside__body">
-        <section class="group">
-          <header class="group__header">
-            <h4 class="title">Categories</h4>
-            <Icon class="icon icon-add"
-                  type="add" />
-          </header>
-          <Categories :categories="categories"
-                      @getArticleList="getArticleList" />
-        </section>
-      </div>
+  <div class="layout-workspace">
+    <aside class="layout-workspace__aside">
+      <Categories :categories="categories"
+                  @getArticleList="getArticleList" />
     </aside>
     <div class="layout-workspace__articles">
-      <Articles :articles="articles" />
+      <Articles :articles="articles"
+                @getArticle="getArticle" />
     </div>
     <div class="layout-workspace__article">
-      <Article />
+      <Article :article="article" />
     </div>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -45,7 +34,8 @@ export default {
   data () {
     return {
       categories: [],
-      articles: []
+      articles: [],
+      article: ''
     }
   },
   computed: {
@@ -65,10 +55,17 @@ export default {
       })
     },
     getArticleList (path) {
-      console.log(path)
       this.$fetch('repository.getArticleList', path).then(data => {
         this.articles = data
-        console.log(JSON.stringify(data, null, 4))
+
+        if (data.length > 0) {
+          this.getArticle(data[0].path)
+        }
+      })
+    },
+    getArticle (path) {
+      this.$fetch('repository.getArticle', path).then(res => {
+        this.article = res
       })
     }
   },
@@ -83,6 +80,7 @@ export default {
   display: flex;
   height: 100vh;
   flex-direction: row;
+  background-color: #fff;
 
   &__aside,
   &__articles,
@@ -97,59 +95,17 @@ export default {
   }
 
   &__aside {
-    width: 200px;
+    width: 240px;
   }
 
   &__articles {
     position: relative;
     width: 300px;
+    background-color: #fafafa;
   }
 
   &__article {
     flex: auto;
-  }
-}
-
-.aside {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-
-  &__header,
-  &__footer {
-    flex-shrink: 0;
-  }
-
-  &__body {
-    flex: auto;
-    overflow: auto;
-    padding: 15px 0;
-  }
-
-  &__footer {
-    display: flex;
-
-    padding: 10px;
-    justify-content: space-between;
-  }
-}
-
-.group {
-  &__header {
-    display: flex;
-    padding: 0 10px 0 18px;
-    height: 50px;
-    align-items: center;
-    color: #888;
-
-    .title {
-      flex: auto;
-    }
-
-    .icon {
-      flex-shrink: 0;
-      font-size: 14px;
-    }
   }
 }
 </style>

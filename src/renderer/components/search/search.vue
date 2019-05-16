@@ -1,15 +1,17 @@
 <template>
-  <form :class="classnames" onSubmit="{this.handleSubmit}">
-    <Icon class="icon icon-search" type="search"/>
-    <input
-      type="text"
-      placeholder="Search ..."
-      autocomplete="off"
-      spellcheck="false"
-      value="value"
-      onChange="{this.handleChange}"
-    >
-    <Icon class="icon icon-close" type="close-fill" @click.native="handleClear"/>
+  <form :class="classnames"
+        @submit="handleSubmit">
+    <Icon class="icon icon-search"
+          type="search" />
+    <input type="text"
+           placeholder="Search ..."
+           autocomplete="off"
+           spellcheck="false"
+           v-model.trim="val">
+    <Icon class="icon icon-close"
+          type="close-fill"
+          @click.native="handleClear"
+          v-if="val !== ''" />
   </form>
 </template>
 
@@ -24,11 +26,14 @@ export default {
     Icon
   },
   props: {
-
+    value: {
+      type: [Number, String],
+      default: ''
+    }
   },
   data () {
     return {
-
+      val: ''
     }
   },
   computed: {
@@ -40,7 +45,24 @@ export default {
   },
   methods: {
     handleClear () {
+      this.val = ''
 
+      this.emitSearch()
+    },
+    handleSubmit (e) {
+      e.preventDefault()
+
+      this.emitSearch()
+    },
+    emitSearch () {
+      this.$emit('on-search', this.val)
+    }
+  },
+  watch: {
+    value (val) {
+      if (val !== this.val) {
+        this.val = val
+      }
     }
   }
 }

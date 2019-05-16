@@ -54,6 +54,9 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "highlight.js": "^9.15.6",
+    "iconv-lite": "^0.4.24",
+    "markdown-it": "^8.4.2",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",

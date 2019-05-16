@@ -1,38 +1,44 @@
 <template>
-  <div class="workspace__articles">
-    <header>
-      <div class="handler-bar">
-        <div class="button-group">
-          <Button class="button"
-                  icon="add" />
-        </div>
-      </div>
-      <div class="search-bar">
-        <Search class="search-input" />
-      </div>
+  <div class="articles">
+    <header class="articles__header">
+      <Icon class="icon icon-add"
+            type="add" />
+      <h4 class="title">Articles</h4>
     </header>
-    <ul class="articles">
-      <li class="article"
-          v-for="(article, index) in articles"
-          :key="index">
-        <h3 class="article-title">{{ article.name }}</h3>
-        <p class="article-summary">我外婆说，我舅舅小时候性子很揪。跟我外公吵完架，就把眼镜布塞眼镜盒里，拿几本书塞进书包，气哼哼的出门，在门口还会吼一声：我这就去美国！再也不回来了！</p>
-        <div>
-          <time class="article-create-time">{{ article.creteTime }}</time>
-        </div>
-      </li>
-    </ul>
+    <div class="articles__search-bar">
+      <Search class="search-input"
+              @on-search="search" />
+    </div>
+    <div class="articles__body">
+
+      <ul class="articles">
+        <li class="article"
+            v-for="(article, index) in articles"
+            :key="index"
+            :class="{active: current.index === index}"
+            @click="getArticle(article, index)"
+            v-if="article.name.indexOf(searchTitle) !== -1">
+          <h3 class="article-title">{{ article.name }}</h3>
+          <p class="article-summary">{{ article.summary }}</p>
+          <div>
+            <time class="article-create-time">{{ article.creteTime }}</time>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 import Button from '@/components/button'
+import Icon from '@/components/icon'
 import Search from '@/components/search'
 
 export default {
   name: 'Articles',
   components: {
     Button,
+    Icon,
     Search
   },
   props: {
@@ -43,64 +49,75 @@ export default {
   },
   data () {
     return {
-
+      current: {
+        index: 0
+      },
+      searchTitle: ''
+    }
+  },
+  methods: {
+    search (keyword) {
+      this.searchTitle = keyword
+    },
+    getArticle (article, index) {
+      this.current.index = index
+      this.$emit('getArticle', article.path)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.workspace__articles {
+.articles {
   $color: #768191;
   $dark: #1d2329;
   $light: #929ba8;
 
-  padding: 20px 0;
   color: $color;
 
-  header {
-    padding: 0 10px;
-    border-bottom: 1px solid $border-color-light;
+  &__header {
+    display: flex;
+    padding: 0 18px;
+    height: 50px;
+    align-items: center;
+    color: #888;
 
-    .handler-bar {
-      display: flex;
-      align-items: center;
-      margin-bottom: 16px;
-
-      .button-group {
-        flex-shrink: 0;
-
-        .button {
-          & + .button {
-            margin-left: 10px;
-          }
-        }
-      }
+    .title {
+      flex: auto;
+      color: $text-color-dark;
     }
 
-    .search-bar {
-      margin-bottom: 10px;
+    .icon {
+      margin-right: 16px;
+      padding: 4px;
+      flex-shrink: 0;
+      font-size: 14px;
+      color: $text-color-dark;
     }
   }
 
+  &__search-bar {
+    padding: 0 18px 12px;
+    border-bottom: 1px solid #e4e4e4;
+  }
+
   .article {
-    padding: 10px 10px;
+    padding: 10px 30px;
 
     &.active,
     &:hover {
-      background-color: #f3f3f3;
+      background-color: rgba(#000, 0.03);
     }
 
     &-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: $dark;
+      font-size: 16px;
+      font-weight: 400;
+      color: $text-color-dark;
     }
 
     &-summary {
       overflow: hidden;
       margin: 5px 0;
-      height: 40px;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-line-clamp: 2;

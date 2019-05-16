@@ -9,5 +9,8 @@ export default {
   },
   getArticleList: {
     channel: `${controller}/getArticleList`
+  },
+  getArticle: {
+    channel: `${controller}/getArticle`
   }
 }
