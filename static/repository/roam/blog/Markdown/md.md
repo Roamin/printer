@@ -144,7 +144,9 @@ Index: languages/ini.js
 
 ## Image
 
-![M](https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-439218.jpg)
+![Mountain](https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-439218.jpg)
+
+![Mountain](https://wallpapers.wallhaven.cc/wallpapers/full/wallhaven-14215.jpg)
 
 ## Link
 

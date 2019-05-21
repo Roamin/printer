@@ -21,6 +21,8 @@ function scanDir (dir, deep = 1) {
       name,
       base,
       ext,
+      birthtime: stats.birthtime,
+      mtime: stats.mtime,
       isDir: stats.isDirectory()
     }
 

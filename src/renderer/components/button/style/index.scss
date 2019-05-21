@@ -1,11 +1,18 @@
 .c-button {
-  padding: 0;
+  display: inline-flex;
+  padding: 0 5px;
   min-width: 32px;
   height: 32px;
+  align-items: center;
+  justify-content: center;
   border: none;
   outline: none;
   border-radius: 8px;
   background-color: rgba(#000, 0.02);
+
+  & + & {
+    margin-left: 5px;
+  }
 
   &:hover {
     background-color: rgba(#000, 0.06);
@@ -13,5 +20,18 @@
 
   &.circle {
     border-radius: (32px / 2);
+  }
+
+  $types: (
+    primary: $primary,
+    danger: $danger,
+    warning: $warning
+  );
+
+  @each $type, $color in $types {
+    &.#{$type} {
+      color: $color;
+      background-color: rgba($color, 0.6);
+    }
   }
 }

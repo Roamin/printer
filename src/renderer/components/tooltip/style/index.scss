@@ -1,0 +1,93 @@
+.c-tooltip {
+  display: inline-block;
+  line-height: 1;
+  position: relative;
+
+  $background-color: rgba(45, 45, 45, 0.8);
+  $gap: 5px;
+  $arrow-size: 4px;
+
+  &__content {
+    display: none;
+    opacity: 0;
+    z-index: 1900;
+    position: absolute;
+    padding: 5px 10px;
+    line-height: 1.5;
+    border-radius: 4px;
+    color: #fff;
+    background-color: $background-color;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 0;
+      border: 4px solid transparent;
+    }
+  }
+
+  &:hover &__content {
+    display: block;
+    animation: fadeIn 0.5s forwards;
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.left &__content {
+    right: 100%;
+    top: 50%;
+    transform: translate(-$gap, -50%);
+
+    &::before {
+      right: 0;
+      top: 50%;
+      transform: translate(100%, -50%);
+      border-left-color: $background-color;
+    }
+  }
+  &.right &__content {
+    left: 100%;
+    top: 50%;
+    transform: translate(($gap + $arrow-size), -50%);
+
+    &::before {
+      left: 0;
+      top: 50%;
+      transform: translate(-100%, -50%);
+      border-right-color: $background-color;
+    }
+  }
+  &.top &__content {
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, -($gap + $arrow-size));
+
+    &::before {
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 100%);
+      border-top-color: $background-color;
+    }
+  }
+  &.bottom &__content {
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, ($gap + $arrow-size));
+
+    &::before {
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -100%);
+      border-bottom-color: $background-color;
+    }
+  }
+}

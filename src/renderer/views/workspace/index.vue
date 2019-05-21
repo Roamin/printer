@@ -1,15 +1,13 @@
 <template>
   <div class="layout-workspace">
     <aside class="layout-workspace__aside">
-      <Categories :categories="categories"
-                  @getArticleList="getArticleList" />
+      <Categories />
     </aside>
     <div class="layout-workspace__articles">
-      <Articles :articles="articles"
-                @getArticle="getArticle" />
+      <Articles />
     </div>
     <div class="layout-workspace__article">
-      <Article :article="article" />
+      <Article />
     </div>
   </div>
 </template>
@@ -34,43 +32,18 @@ export default {
   data () {
     return {
       categories: [],
-      articles: [],
-      article: ''
+      categoryPath: '',
+      articlePath: ''
     }
   },
   computed: {
 
   },
   methods: {
-    init () {
-      this.getCategoryList()
-    },
-    getCategoryList () {
-      this.$fetch('repository.getCategoryList').then(data => {
-        this.categories = data
 
-        if (data.length > 0) {
-          this.getArticleList(data[0].path)
-        }
-      })
-    },
-    getArticleList (path) {
-      this.$fetch('repository.getArticleList', path).then(data => {
-        this.articles = data
-
-        if (data.length > 0) {
-          this.getArticle(data[0].path)
-        }
-      })
-    },
-    getArticle (path) {
-      this.$fetch('repository.getArticle', path).then(res => {
-        this.article = res
-      })
-    }
   },
   created () {
-    this.init()
+
   }
 }
 </script>

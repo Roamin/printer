@@ -8,13 +8,13 @@
     <div class="aside__body">
       <ul class="categories">
         <li class="category"
-            v-for="(category, index) in categories"
-            :class="{active: current.index === index}"
-            :key="category.name"
-            @click="getArticleList(category, index)">
+            v-for="item in categories"
+            :class="{active: category.path === item.path}"
+            :key="item.path"
+            @click="cdCategory(item)">
           <Icon class="category-icon"
                 type="folder" />
-          <span class="category-name">{{ category.name }}</span>
+          <span class="category-name">{{ item.name }}</span>
         </li>
       </ul>
     </div>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Icon from '@/components/icon'
 
 export default {
@@ -29,24 +30,37 @@ export default {
   components: {
     Icon
   },
-  props: {
-    categories: {
-      type: Array,
-      default: () => []
-    }
-  },
   data () {
     return {
+      categories: [],
       current: {
         index: 0
       }
     }
   },
+  computed: {
+    ...mapState('workspace', [
+      'category'
+    ])
+  },
   methods: {
-    getArticleList ({ path }, index) {
-      this.current.index = index
-      this.$emit('getArticleList', path)
+    init () {
+      this.getCategoryList()
+    },
+    getCategoryList () {
+      this.$fetch('repository.getCategoryList').then(data => {
+        this.categories = data
+      })
+    },
+    cdCategory ({ name, path }) {
+      this.$store.commit('workspace/updateCategory', {
+        name,
+        path
+      })
     }
+  },
+  created () {
+    this.init()
   }
 }
 </script>

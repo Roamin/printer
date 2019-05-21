@@ -13,15 +13,14 @@
 
       <ul class="articles">
         <li class="article"
-            v-for="(article, index) in articles"
-            :key="index"
-            :class="{active: current.index === index}"
-            @click="getArticle(article, index)"
-            v-if="article.name.indexOf(searchTitle) !== -1">
-          <h3 class="article-title">{{ article.name }}</h3>
-          <p class="article-summary">{{ article.summary }}</p>
+            v-for="item in filteredArticles"
+            :key="item.path"
+            :class="{active: article.path === item.path}"
+            @click="cdArticle(item)">
+          <h3 class="article-title">{{ item.name }}</h3>
+          <p class="article-summary">{{ item.summary }}</p>
           <div>
-            <time class="article-create-time">{{ article.creteTime }}</time>
+            <time class="article-create-time">{{ item.birthtime | moment('YYYY-MM-DD') }}</time>
           </div>
         </li>
       </ul>
@@ -30,9 +29,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import Button from '@/components/button'
 import Icon from '@/components/icon'
 import Search from '@/components/search'
+
+import moment from '@/filters/moment'
 
 export default {
   name: 'Articles',
@@ -41,27 +44,49 @@ export default {
     Icon,
     Search
   },
-  props: {
-    articles: {
-      type: Array,
-      default: () => []
-    }
+  filters: {
+    moment
   },
   data () {
     return {
-      current: {
-        index: 0
-      },
+      articles: [],
       searchTitle: ''
+    }
+  },
+  computed: {
+    ...mapState('workspace', [
+      'category',
+      'article'
+    ]),
+    filteredArticles () {
+      const title = this.searchTitle
+
+      return this.articles.filter(({ name }) => {
+        return name.indexOf(title) !== -1
+      })
     }
   },
   methods: {
     search (keyword) {
       this.searchTitle = keyword
     },
-    getArticle (article, index) {
-      this.current.index = index
-      this.$emit('getArticle', article.path)
+    cdArticle ({ name, path }) {
+      this.$store.commit('workspace/updateArticle', {
+        name,
+        path
+      })
+    },
+    getArticleList () {
+      const { path } = this.category
+
+      this.$fetch('repository.getArticleList', { path }).then(data => {
+        this.articles = data
+      })
+    }
+  },
+  watch: {
+    category (category) {
+      if (category.path !== '') this.getArticleList()
     }
   }
 }
@@ -98,7 +123,7 @@ export default {
 
   &__search-bar {
     padding: 0 18px 12px;
-    border-bottom: 1px solid #e4e4e4;
+    border-bottom: 1px solid $border-color;
   }
 
   .article {

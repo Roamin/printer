@@ -2,13 +2,17 @@
   <div class="article">
     <header>
       <Button class="button"
-              icon="edit" />
-      <Button class="button"
-              icon="fullscreen" />
+              icon="edit"
+              :to="{
+                name: 'print',
+                params: {
+                  path: article.path
+                }
+              }" />
     </header>
     <div class="article__body">
       <article class="markdown-content"
-               v-html="renderedArticle"></article>
+               v-html="renderedContent"></article>
     </div>
   </div>
 </template>
@@ -16,6 +20,7 @@
 <script>
 import hljs from 'highlight.js'
 import MarkdownIt from 'markdown-it'
+import { mapState } from 'vuex'
 
 import Button from '@/components/button'
 
@@ -39,19 +44,33 @@ export default {
     Button
   },
   props: {
-    article: {
-      type: String,
-      default: ''
-    }
+
   },
   data () {
     return {
-
+      content: ''
     }
   },
   computed: {
-    renderedArticle () {
-      return md.render(this.article)
+    ...mapState('workspace', [
+      'article'
+    ]),
+    renderedContent () {
+      return md.render(this.content)
+    }
+  },
+  methods: {
+    getArticle () {
+      const { path } = this.article
+
+      this.$fetch('repository.getArticle', { path }).then(res => {
+        this.content = res
+      })
+    }
+  },
+  watch: {
+    article ({ path }) {
+      if (path !== '') this.getArticle()
     }
   }
 }
@@ -83,25 +102,9 @@ export default {
     height: 100%;
     overflow: hidden;
 
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 40px;
-    }
-    &::before {
-      top: 0;
-      background-image: linear-gradient(#fff, transparent);
-    }
-    &::after {
-      bottom: 0;
-      background-image: linear-gradient(transparent, #fff);
-    }
-
     article {
       overflow: scroll;
-      padding: 40px 28px;
+      padding: 0 28px;
       height: 100%;
     }
   }

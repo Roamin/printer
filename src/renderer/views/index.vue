@@ -10,8 +10,10 @@
       <div class="aside__body">
         <ul class="nav-list">
           <nav v-for="nav in navList"
-            :key="nav.to">
-            <router-link class="router-link" :to="nav.to" active-class="active">
+               :key="nav.to">
+            <router-link class="router-link"
+                         :to="nav.to"
+                         active-class="active">
               <Icon :type="nav.icon" />
             </router-link>
           </nav>
@@ -135,7 +137,7 @@ export default {
     height: 32px;
     border-radius: 8px;
     cursor: pointer;
-    
+
     &:hover,
     &.active {
       background-color: #2443dd;

@@ -7,20 +7,13 @@ import setting from './setting'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'hash',
   routes: [
     {
       path: '/',
       component: () => import('@/views'),
-      children: [
-        {
-          path: '',
-          redirect: {
-            name: 'workspace'
-          }
-        },
-        workspace,
-        setting
-      ]
+      redirect: '/workspace/view',
+      children: [workspace, setting]
     },
     {
       path: '*',

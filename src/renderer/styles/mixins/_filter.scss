@@ -1,0 +1,4 @@
+@mixin backdrop-filter($color, $length: 15px) {
+  background-color: rgba($color, 0.8);
+  backdrop-filter: blur($length);
+}

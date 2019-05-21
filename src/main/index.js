@@ -28,7 +28,10 @@ function createWindow () {
     title: app.getName(),
     // titleBarStyle: 'hidden',
     width: 1080,
-    height: 720
+    height: 720,
+    webPreferences: {
+      experimentalFeatures: true
+    }
   })
 
   mainWindow.loadURL(winURL)

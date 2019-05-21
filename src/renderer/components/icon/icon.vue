@@ -1,14 +1,15 @@
 <template>
-  <i :class="classnames">
+  <i :class="classnames"
+     :style="styles">
     <svg aria-hidden="true">
       <use :xlink:href="'#icon-' + type"></use>
     </svg>
-    <slot/>
+    <slot />
   </i>
 </template>
 
 <script>
-const pefixCls = 'c-icon'
+const prefixCls = 'c-icon'
 
 export default {
   name: 'Icon',
@@ -16,6 +17,9 @@ export default {
     type: {
       type: String,
       required: true
+    },
+    size: {
+      type: String
     },
     spin: {
       type: Boolean,
@@ -30,12 +34,20 @@ export default {
   computed: {
     classnames () {
       return [
-        `${pefixCls}`,
+        `${prefixCls}`,
         {
-          [`${pefixCls}--spin`]: this.spin
+          [`${prefixCls}--spin`]: this.spin
         }
       ]
+    },
+    styles () {
+      const styles = {}
+
+      if (this.size) styles.fontSize = this.size
+
+      return styles
     }
   }
+
 }
 </script>

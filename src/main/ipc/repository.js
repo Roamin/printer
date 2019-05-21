@@ -16,32 +16,35 @@ ipcRegister('repository.getCategoryList', (event, data, send) => {
   send(files)
 })
 
-ipcRegister('repository.getArticleList', (event, data, send) => {
-  const files = scanDir(data)
-  const queen = []
+ipcRegister(
+  'repository.getArticleList',
+  (event, { path: categoryPath }, send) => {
+    const files = scanDir(categoryPath)
+    const queen = []
 
-  files.forEach(file => {
-    queen.push(getFileText(file.path, 100))
-  })
+    files.forEach(file => {
+      queen.push(getFileText(file.path, 100))
+    })
 
-  Promise.all(queen)
-    .then(values => {
-      const res = files.map((file, index) => {
-        return {
-          ...file,
-          summary: values[index]
-        }
+    Promise.all(queen)
+      .then(values => {
+        const res = files.map((file, index) => {
+          return {
+            ...file,
+            summary: values[index]
+          }
+        })
+
+        send(res)
       })
+      .catch(error => {
+        throw Error(error)
+      })
+  }
+)
 
-      send(res)
-    })
-    .catch(error => {
-      throw Error(error)
-    })
-})
-
-ipcRegister('repository.getArticle', (event, data, send) => {
-  getFileText(data)
+ipcRegister('repository.getArticle', (event, { path: articlePath }, send) => {
+  getFileText(articlePath)
     .then(res => {
       send(res)
     })

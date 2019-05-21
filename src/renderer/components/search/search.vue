@@ -9,7 +9,7 @@
            spellcheck="false"
            v-model.trim="val">
     <Icon class="icon icon-close"
-          type="close-fill"
+          type="close-cricle-filled"
           @click.native="handleClear"
           v-if="val !== ''" />
   </form>
@@ -18,7 +18,7 @@
 <script>
 import Icon from '../icon'
 
-const pefixCls = 'c-search'
+const prefixCls = 'c-search'
 
 export default {
   name: 'Search',
@@ -39,7 +39,7 @@ export default {
   computed: {
     classnames () {
       return [
-        `${pefixCls}`
+        `${prefixCls}`
       ]
     }
   },
