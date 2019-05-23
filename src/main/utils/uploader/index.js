@@ -1,14 +1,13 @@
-import { app, Notification } from 'electron'
+import { Notification } from 'electron'
 import path from 'path'
 import dayjs from 'dayjs'
 
 const PicGo = require('picgo')
-const STORE_PATH = app.getPath('userData')
-const CONFIG_PATH = path.join(STORE_PATH, '/data.json')
+const CONFIG_PATH = path.join(__dirname, 'config.json')
 
 class Uploader {
-  constructor (imagePathList, webContents, picgo = undefined) {
-    this.imagePathList = imagePathList
+  constructor (imageList, webContents, picgo = undefined) {
+    this.imageList = imageList
     this.webContents = webContents
     this.picgo = picgo
   }
@@ -44,6 +43,30 @@ class Uploader {
       }
     })
 
+    picgo.helper.beforeTransformPlugins.register('renameFn', {
+      handle: async ctx => {
+        const autoRename = picgo.getConfig('settings.autoRename')
+
+        await Promise.all(
+          ctx.output.map(async (item, index) => {
+            let name
+            let fileName
+
+            if (autoRename) {
+              fileName =
+                dayjs()
+                  .add(index, 'second')
+                  .format('YYYYMMDDHHmmss') + item.extname
+            } else {
+              fileName = item.fileName
+            }
+
+            item.fileName = name || fileName
+          })
+        )
+      }
+    })
+
     picgo.on('beforeTransform', ctx => {
       if (ctx.getConfig('settings.uploadNotification')) {
         const notification = new Notification({
@@ -55,7 +78,7 @@ class Uploader {
       }
     })
 
-    picgo.upload(this.imagePathList)
+    picgo.upload(this.imageList)
 
     picgo.on('notification', message => {
       const notification = new Notification(message)

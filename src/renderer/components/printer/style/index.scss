@@ -1,0 +1,56 @@
+.c-printer {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  &__header {
+    z-index: 1;
+    position: relative;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px rgba(#000, 0.15);
+  }
+
+  &__body {
+    position: relative;
+    flex: auto;
+    overflow: hidden;
+    height: 100%;
+
+    .editor,
+    .previewer {
+      height: 100%;
+      overflow: auto;
+    }
+  }
+
+  .toolbar {
+    display: flex;
+    padding: 0 16px;
+    line-height: 50px;
+    justify-content: space-between;
+
+    .button {
+      color: $text-color-dark;
+    }
+  }
+
+  .editor {
+    textarea {
+      padding: 24px;
+      width: 100%;
+      height: 100%;
+      border: none;
+      color: $text-color;
+      font-size: $font-size-base;
+      word-break: break-word;
+      line-height: 1.75;
+      resize: none;
+    }
+  }
+
+  .previewer {
+    article {
+      padding: 24px;
+    }
+  }
+}
