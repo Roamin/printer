@@ -18,7 +18,7 @@
 
     .editor,
     .previewer {
-      height: 100%;
+      min-height: 100%;
       overflow: auto;
     }
   }
@@ -35,16 +35,73 @@
   }
 
   .editor {
-    textarea {
-      padding: 24px;
-      width: 100%;
-      height: 100%;
-      border: none;
-      color: $text-color;
-      font-size: $font-size-base;
-      word-break: break-word;
+    display: flex;
+
+    .line-numbers,
+    .textarea-wrapper {
       line-height: 1.75;
-      resize: none;
+      font-size: $font-size-base;
+      font-family: inherit;
+    }
+
+    .line-number,
+    .textarea-simulator,
+    textarea {
+      padding: 0 10px;
+    }
+
+    .line-numbers {
+      flex-shrink: 0;
+      background-color: #fafafa;
+      border-right: 1px solid #f0f0f0;
+    }
+
+    .line-number {
+      min-width: 60px;
+      text-align: right;
+      color: rgba(#000, 0.3);
+
+      &--placeholder {
+        visibility: hidden;
+      }
+    }
+
+    .textarea-wrapper {
+      flex: auto;
+      position: relative;
+      overflow-wrap: break-word;
+      word-break: break-word;
+
+      .textarea-simulator {
+        &__segment {
+          position: relative;
+
+          .line-number {
+            position: absolute;
+            left: -11px;
+            height: 100%;
+            transform: translateX(-100%);
+          }
+
+          .paragraph {
+            white-space: pre-wrap;
+          }
+        }
+      }
+
+      textarea {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        color: $text-color;
+        font-size: inherit;
+        line-height: inherit;
+        resize: none;
+        background-color: transparent;
+      }
     }
   }
 

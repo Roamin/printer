@@ -28,6 +28,10 @@ input {
   font-family: inherit;
 }
 
+textarea {
+  padding: 0;
+}
+
 ul,
 ol {
   margin: 0;
@@ -40,7 +44,8 @@ h3,
 h4,
 h5,
 h6,
-p {
+p,
+pre {
   margin: 0;
 }
 

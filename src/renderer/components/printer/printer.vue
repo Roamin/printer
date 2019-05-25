@@ -27,8 +27,21 @@
       <Split>
         <template v-slot:left>
           <div class="editor">
-            <textarea ref="textarea"
-                      v-model="val"></textarea>
+            <div class="line-numbers">
+              <div class="line-number line-number--placeholder">{{ valSegments.length }}</div>
+            </div>
+            <div class="textarea-wrapper">
+              <div class="textarea-simulator">
+                <div class="textarea-simulator__segment"
+                     v-for="(segment, line) in valSegments"
+                     :key="line + '-' + segment">
+                  <div class="line-number">{{ line + 1 }}</div>
+                  <p class="paragraph">{{ segment || '\r' }}</p>
+                </div>
+              </div>
+              <textarea ref="textarea"
+                        v-model="val"></textarea>
+            </div>
           </div>
         </template>
         <template v-slot:right>
@@ -46,6 +59,8 @@
 <script>
 import hljs from 'highlight.js'
 import MarkdownIt from 'markdown-it'
+
+import typeOf from 'common/utils/typeof'
 
 import Button from '../button'
 import Icon from '../icon'
@@ -83,7 +98,7 @@ export default {
     return {
       prefixCls,
       val: '',
-      ref: ''
+      lines: 30
     }
   },
   computed: {
@@ -94,6 +109,9 @@ export default {
     },
     html () {
       return md.render(this.val)
+    },
+    valSegments () {
+      return this.val.split(/\r*\n/)
     }
   },
   methods: {
@@ -107,16 +125,24 @@ export default {
       another.scrollTop = another.scrollHeight * (scrollTop / scrollHeight)
     }
   },
-  mounted () {
+  created () {
     if (this.val !== this.value) {
       this.val = this.value
     }
+  },
+  mounted () {
+    console.log(this.$refs.textarea.scrollHeight)
   },
   watch: {
     value (val) {
       if (this.val !== val) {
         this.val = val
       }
+    },
+    val (val) {
+      const matched = val.match(/\r*\n/g)
+
+      this.lines = typeOf(matched) === 'null' ? 1 : matched.length + 1
     }
   }
 }
