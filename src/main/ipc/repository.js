@@ -4,21 +4,29 @@ import scanDir from '@/utils/scan-dir'
 import getFileText from '@/utils/get-file-text'
 import ipcRegister from '@/utils/ipc-register'
 
-ipcRegister('repository.getList', (event, data, send) => {
-  const files = scanDir(path.join(__static, './repository/roam'))
+ipcRegister('repository.getList', (event, req, resolve, reject) => {
+  try {
+    const files = scanDir(path.join(__static, './repository/roam'))
 
-  send(files)
+    resolve(files)
+  } catch (error) {
+    reject(error)
+  }
 })
 
-ipcRegister('repository.getCategoryList', (event, data, send) => {
-  const files = scanDir(path.join(__static, './repository/roam/blog'))
+ipcRegister('repository.getCategoryList', (event, req, resolve, reject) => {
+  try {
+    const files = scanDir(path.join(__static, './repository/roam/blog'))
 
-  send(files)
+    resolve(files)
+  } catch (error) {
+    reject(error)
+  }
 })
 
 ipcRegister(
   'repository.getArticleList',
-  (event, { path: categoryPath }, send) => {
+  (event, { path: categoryPath }, resolve, reject) => {
     const files = scanDir(categoryPath)
     const queen = []
 
@@ -35,20 +43,23 @@ ipcRegister(
           }
         })
 
-        send(res)
+        resolve(res)
       })
       .catch(error => {
-        throw Error(error)
+        reject(error)
       })
   }
 )
 
-ipcRegister('repository.getArticle', (event, { path: articlePath }, send) => {
-  getFileText(articlePath)
-    .then(res => {
-      send(res)
-    })
-    .catch(error => {
-      throw Error(error)
-    })
-})
+ipcRegister(
+  'repository.getArticle',
+  (event, { path: articlePath }, resolve, reject) => {
+    getFileText(articlePath)
+      .then(res => {
+        resolve(res)
+      })
+      .catch(error => {
+        reject(error)
+      })
+  }
+)
