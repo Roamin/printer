@@ -1,20 +1,78 @@
-// import path from 'path'
-
-import getFileMd5 from '@/utils/get-file-md5'
+import fs from 'fs'
+import request from 'request'
+import path from 'path'
+import crypto from 'crypto'
 
 import Uploader from '@/utils/uploader'
 import ipcRegister from '@/utils/ipc-register'
 
-ipcRegister('common.saveImage', (event, images, resolve, reject) => {
-  // const savePath = path.join(__static, './images', `${Date.now()}.png`)
+const IMG_DIR = path.join(__static, './images')
+const TMP_DIR = path.join(IMG_DIR, 'tmp')
 
-  getFileMd5(images)
-    .then(hash => {
-      resolve(hash)
+let tmpId = 0
+
+function renameImage (tmpPath, fileHash, ext) {
+  const imgPath = path.join(IMG_DIR, `${fileHash}${ext}`)
+  console.log(tmpPath)
+
+  return new Promise((resolve, reject) => {
+    if (fs.existsSync(imgPath)) {
+      fs.unlink(tmpPath, error => {
+        if (error) return reject(error)
+
+        resolve(imgPath)
+      })
+    } else {
+      fs.rename(tmpPath, imgPath, error => {
+        if (error) return reject(error)
+
+        resolve(imgPath)
+      })
+    }
+  })
+}
+
+ipcRegister('common.saveImage', (event, { type, data }, resolve, reject) => {
+  tmpId += 1
+
+  if (type === 'base64') {
+    const md5sum = crypto.createHash('md5')
+    const tmpPath = path.join(TMP_DIR, `${tmpId}.png`)
+    const base64 = data.replace(/^data:image\/\w+;base64,/, '')
+    const buffer = Buffer.from(base64, 'base64')
+    const hash = md5sum.update(buffer).digest('hex')
+
+    fs.writeFile(tmpPath, buffer, error => {
+      if (error) return reject(error)
+      renameImage(tmpPath, hash, '.png')
+        .then(resolve)
+        .catch(reject)
     })
-    .catch(error => {
+  } else {
+    console.log('url')
+    const { ext } = path.parse(data)
+    const md5sum = crypto.createHash('md5')
+    const tmpPath = path.join(TMP_DIR, `${tmpId}${ext}`)
+    const ws = fs.createWriteStream(tmpPath)
+    let hash = ''
+
+    ws.on('close', () => {
+      renameImage(tmpPath, hash, ext)
+        .then(resolve)
+        .catch(reject)
+    }).on('error', error => {
       reject(error)
     })
+
+    request(data)
+      .on('data', chunk => {
+        md5sum.update(chunk)
+      })
+      .on('end', () => {
+        hash = md5sum.digest('hex')
+      })
+      .pipe(ws)
+  }
 })
 
 ipcRegister('common.uploadImage', (event, images, resolve, reject) => {

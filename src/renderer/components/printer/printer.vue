@@ -26,27 +26,30 @@
     <div :class="`${prefixCls}__body`">
       <Split>
         <template v-slot:left>
-          <div class="editor">
-            <div class="line-numbers">
-              <div class="line-number line-number--placeholder">{{ valSegments.length }}</div>
-            </div>
-            <div class="textarea-wrapper">
-              <div class="textarea-simulator">
-                <div class="textarea-simulator__segment"
-                     v-for="(segment, line) in valSegments"
-                     :key="line + '-' + segment">
-                  <div class="line-number">{{ line + 1 }}</div>
-                  <p class="paragraph">{{ segment || '\r' }}</p>
-                </div>
+          <div ref="editorScroll"
+               style="height: 100%; overflow: auto">
+            <div class="editor">
+              <div class="line-numbers">
+                <div class="line-number line-number--placeholder">{{ valSegments.length }}</div>
               </div>
-              <textarea ref="textarea"
-                        v-model="val"></textarea>
+              <div class="textarea-wrapper">
+                <div class="textarea-simulator">
+                  <div class="textarea-simulator__segment"
+                       v-for="(segment, line) in valSegments"
+                       :key="line + '-' + segment">
+                    <div class="line-number">{{ line + 1 }}</div>
+                    <p class="paragraph">{{ segment || '\r' }}</p>
+                  </div>
+                </div>
+                <textarea @paste="paste"
+                          v-model="val"></textarea>
+              </div>
             </div>
           </div>
         </template>
         <template v-slot:right>
           <div class="previewer"
-               @scroll="handleScroll($event, 'textarea')">
+               @scroll="handleScroll($event, 'editorScroll')">
             <article class="markdown-content"
                      v-html="html"></article>
           </div>
@@ -59,7 +62,6 @@
 <script>
 import hljs from 'highlight.js'
 import MarkdownIt from 'markdown-it'
-
 import typeOf from 'common/utils/typeof'
 
 import Button from '../button'
@@ -122,16 +124,51 @@ export default {
       const another = this.$refs[ref]
       const { scrollHeight, scrollTop } = event.target
 
+      console.log(scrollHeight, scrollTop)
+
       another.scrollTop = another.scrollHeight * (scrollTop / scrollHeight)
+    },
+    paste (event) {
+      const items = event.clipboardData.items
+
+      Object.keys(items).forEach((k) => {
+        const item = items[k]
+
+        if (item.kind === 'file') {
+          console.log(item)
+          const blob = item.getAsFile()
+          const reader = new FileReader()
+
+          reader.onload = (event) => {
+            this.$fetch('common.saveImage', {
+              type: 'base64',
+              data: event.target.result
+            }).then((res) => {
+              console.log(res)
+            }).catch(error => {
+              console.error(error)
+            })
+          }
+
+          reader.readAsDataURL(blob)
+        } else {
+          console.log(event.clipboardData.getData('text'))
+          this.$fetch('common.saveImage', {
+            type: 'url',
+            data: event.clipboardData.getData('text')
+          }).then((res) => {
+            console.log(res)
+          }).catch(error => {
+            console.error(error)
+          })
+        }
+      })
     }
   },
   created () {
     if (this.val !== this.value) {
       this.val = this.value
     }
-  },
-  mounted () {
-    console.log(this.$refs.textarea.scrollHeight)
   },
   watch: {
     value (val) {

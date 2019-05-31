@@ -7,15 +7,29 @@ export default function (name, handle) {
 
   if (async) {
     ipcMain.on(channel, (event, data) => {
-      handle(event, data, res => {
-        event.sender.send(`${channel}__reply`, res)
-      })
+      handle(
+        event,
+        data,
+        res => {
+          event.sender.send(`${channel}__reply`, res)
+        },
+        error => {
+          event.sender.send(`${channel}__error`, error)
+        }
+      )
     })
   } else {
     ipcMain.on(channel, (event, data) => {
-      handle(event, data, res => {
-        event.returnValue = res
-      })
+      handle(
+        event,
+        data,
+        res => {
+          event.returnValue = res
+        },
+        error => {
+          event.sender.send(`${channel}__error`, error)
+        }
+      )
     })
   }
 }
