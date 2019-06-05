@@ -166,6 +166,11 @@
     background: #f8f8f8;
   }
 
+  .highlighted-line {
+    display: block;
+    background: #eee;
+  }
+
   .hljs-comment,
   .hljs-quote {
     color: #998;

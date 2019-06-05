@@ -1,27 +1,7 @@
 <template>
   <div :class="classnames">
     <header :class="`${prefixCls}__header`">
-      <div class="toolbar">
-        <div class="left">
-          <Button class="button"
-                  icon="image" />
-          <Button class="button"
-                  icon="table" />
-          <Button class="button"
-                  icon="undo" />
-          <Button class="button"
-                  icon="redo" />
-        </div>
-
-        <div class="right">
-          <Button class="button"
-                  icon="help-circle" />
-          <Button class="button"
-                  icon="layout" />
-          <Button class="button"
-                  icon="save" />
-        </div>
-      </div>
+      <Toolbar />
     </header>
     <div :class="`${prefixCls}__body`">
       <Split>
@@ -41,7 +21,8 @@
                     <p class="paragraph">{{ segment || '\r' }}</p>
                   </div>
                 </div>
-                <textarea @paste="paste"
+                <textarea ref="textarea"
+                          @paste="paste"
                           v-model="val"></textarea>
               </div>
             </div>
@@ -60,35 +41,27 @@
 </template>
 
 <script>
-import hljs from 'highlight.js'
-import MarkdownIt from 'markdown-it'
 import typeOf from 'common/utils/typeof'
 
 import Button from '../button'
 import Icon from '../icon'
 import Split from '../split'
 
-const prefixCls = 'c-printer'
-const md = new MarkdownIt({
-  highlight: (str, lang) => {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return `<pre class="hljs ${lang}"><code>${hljs.highlight(lang, str, true).value}</code></pre>`
-      } catch (error) {
-        console.log(error)
-      }
-    }
+import Toolbar from './components/toolbar'
+import md from './md'
 
-    return `<pre class="hljs"><code>${md.utils.escapeHtml(str)}</code></pre>`
-  }
-})
+const prefixCls = 'c-printer'
+
+const IMAGE_EXT_TYPES = ['.gif', '.webp', '.png', '.jpeg', '.jpg']
+const IMAGE_MIME_TYPES = ['image/gif', 'image/webp', 'image/png', 'image/jpeg']
 
 export default {
   name: 'Printer',
   components: {
     Button,
     Icon,
-    Split
+    Split,
+    Toolbar
   },
   props: {
     value: {
@@ -100,7 +73,8 @@ export default {
     return {
       prefixCls,
       val: '',
-      lines: 30
+      lines: 30,
+      refTextarea: null
     }
   },
   computed: {
@@ -120,6 +94,13 @@ export default {
     update () {
       this.$emit('input', this.val)
     },
+    insert (insertStr) {
+      const { selectionStart: startPos, selectionEnd: endPos } = this.refTextarea
+      const oldVal = this.val
+
+      this.val = oldVal.substring(0, startPos) + insertStr + oldVal.substring(endPos, oldVal.length)
+      this.update()
+    },
     handleScroll (event, ref) {
       const another = this.$refs[ref]
       const { scrollHeight, scrollTop } = event.target
@@ -129,39 +110,56 @@ export default {
       another.scrollTop = another.scrollHeight * (scrollTop / scrollHeight)
     },
     paste (event) {
+      console.log(event.clipboardData.types[0])
       const items = event.clipboardData.items
+      const item = items.length === 2 ? items[1] : items[0]
+      const pasteText = event.clipboardData.getData('text')
+      const matchResult = pasteText.match(/(\.\w+)$/)
+      const ext = typeOf(matchResult) === 'array' ? matchResult[1] : undefined
 
-      Object.keys(items).forEach((k) => {
-        const item = items[k]
+      console.log(item.type, item.kind)
+      // bug: copy any file would return image/png
+      if (IMAGE_MIME_TYPES.includes(item.type) && (!ext || IMAGE_EXT_TYPES.includes(ext))) {
+        event.preventDefault()
 
-        if (item.kind === 'file') {
-          console.log(item)
-          const blob = item.getAsFile()
-          const reader = new FileReader()
+        const blob = item.getAsFile()
 
-          reader.onload = (event) => {
-            this.$fetch('common.saveImage', {
-              type: 'base64',
-              data: event.target.result
-            }).then((res) => {
-              console.log(res)
-            }).catch(error => {
-              console.error(error)
-            })
-          }
+        this.uploadLocalImage(blob, ext)
+      }
+      // else if (item.type === 'text/plain' &&
+      //   /^http|s:\/\/\w+/.test(pasteText) &&
+      //   IMAGE_EXT_TYPES.includes(ext)) {
+      //   event.preventDefault()
 
-          reader.readAsDataURL(blob)
-        } else {
-          console.log(event.clipboardData.getData('text'))
-          this.$fetch('common.saveImage', {
-            type: 'url',
-            data: event.clipboardData.getData('text')
-          }).then((res) => {
-            console.log(res)
-          }).catch(error => {
-            console.error(error)
-          })
-        }
+      //   this.uplaodRemoteImage(pasteText)
+      // }
+    },
+    uploadLocalImage (blob, ext) {
+      const reader = new FileReader()
+
+      reader.onload = (event) => {
+        this.$fetch('common.saveImage', {
+          type: 'base64',
+          data: event.target.result,
+          ext
+        }).then((res) => {
+          console.log(res)
+          this.insert(`![](${res})`)
+        }).catch(error => {
+          console.error(error)
+        })
+      }
+
+      reader.readAsDataURL(blob)
+    },
+    uplaodRemoteImage (url) {
+      this.$fetch('common.saveImage', {
+        type: 'url',
+        data: url
+      }).then((res) => {
+        console.log(res)
+      }).catch(error => {
+        console.error(error)
       })
     }
   },
@@ -169,6 +167,9 @@ export default {
     if (this.val !== this.value) {
       this.val = this.value
     }
+  },
+  mounted () {
+    this.refTextarea = this.$refs.textarea
   },
   watch: {
     value (val) {

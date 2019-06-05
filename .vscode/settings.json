@@ -42,6 +42,7 @@
   "stylusSupremacy.insertNewLineAroundBlocks": false,
   "cSpell.words": [
     "dayjs",
+    "hljs",
     "picgo"
   ] // 两个选择器中是否换行
 }

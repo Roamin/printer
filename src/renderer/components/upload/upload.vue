@@ -55,14 +55,16 @@ export default {
       this.dragover = false
     },
     uploadImages (files) {
-      const sendFiles = Array.from(files).map(({ name, path }) => {
-        return { name, path }
+      const images = Array.from(files).map(({ name, path }) => {
+        return { filename: name, filePath: path }
       })
 
-      console.log(JSON.stringify(sendFiles, null, 4))
+      console.log(JSON.stringify(images, null, 4))
 
-      fetch('common.uploadImage', sendFiles).then((res) => {
-        console.log(JSON.stringify(res, null, 4))
+      images.forEach((image) => {
+        fetch('common.uploadImage', image).then((res) => {
+          console.log(image, JSON.stringify(res, null, 4))
+        })
       })
     }
   }

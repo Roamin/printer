@@ -27,7 +27,7 @@ To this end, Markdown’s syntax is comprised entirely of punctuation characters
 
 ``#js``
 
-```javascript
+```javascript {1,2,4-5}
 // Dependencies
 var json2md = require("json2md");
 

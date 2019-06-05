@@ -24,6 +24,9 @@ export default {
     icon: {
       type: String
     },
+    size: {
+      type: String
+    },
     type: {
       validator: (value) => {
         return ['default', 'primary', 'danger', 'warning'].includes(value)
@@ -45,6 +48,7 @@ export default {
       return [
         `${prefixCls}`,
         {
+          [`${this.size}`]: this.size,
           [`${this.type}`]: this.type,
           'circle': this.circle
         }
