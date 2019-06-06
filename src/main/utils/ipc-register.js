@@ -11,10 +11,10 @@ export default function (name, handle) {
         event,
         data,
         res => {
-          event.sender.send(`${channel}__reply`, res)
+          event.sender.send(`${channel}__${data.__frameId}__reply`, res)
         },
         error => {
-          event.sender.send(`${channel}__error`, error)
+          event.sender.send(`${channel}__${data.__frameId}__error`, error)
         }
       )
     })
