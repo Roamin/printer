@@ -7,7 +7,7 @@
     z-index: 1;
     position: relative;
     flex-shrink: 0;
-    box-shadow: 0 0 10px rgba(#000, 0.15);
+    box-shadow: 0 0 10px $box-shadow-color-light;
   }
 
   &__body {

@@ -1,0 +1,45 @@
+.c-input {
+  display: inline-flex;
+  padding: 0 10px;
+  min-width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  border: 1px solid $border-color;
+
+  &.small {
+    padding: 0 5px;
+    border-radius: 8px;
+  }
+  &.large {
+    padding: 0 15px;
+    height: 40px;
+  }
+
+  & + & {
+    margin-left: 5px;
+  }
+
+  &:hover {
+  }
+
+  &.circle {
+    border-radius: (32px / 2);
+  }
+
+  $types: (
+    primary: $primary,
+    danger: $danger,
+    warning: $warning
+  );
+
+  @each $type, $color in $types {
+    &.#{$type} {
+      color: $color;
+      background-color: rgba($color, 0.6);
+    }
+  }
+}

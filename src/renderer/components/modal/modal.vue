@@ -1,5 +1,5 @@
 <template>
-  <div v-if="visible">
+  <div v-show="visible">
     <div :class="`${prefixCls}__mask`"
          @click="maskClickHandle"></div>
 
@@ -69,6 +69,7 @@ export default {
     closeModal () {
       this.visible = false
       this.$emit('input', this.visible)
+      this.$emit('on-close')
     },
     maskClickHandle () {
       if (this.maskClosable) this.closeModal()
@@ -78,9 +79,11 @@ export default {
     },
     cancelClickHandle () {
       this.closeModal()
+      this.$emit('on-cancel')
     },
     confirmClickHandle () {
       this.closeModal()
+      this.$emit('on-confirm')
     }
   },
   mounted () {

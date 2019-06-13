@@ -6,16 +6,15 @@
           v-if="icon" />
     <slot />
   </component>
-
 </template>
 
 <script>
 import Icon from '../icon'
 
-const prefixCls = 'c-button'
+const prefixCls = 'c-input'
 
 export default {
-  name: 'Button',
+  name: 'Input',
   inheritAttrs: false,
   components: {
     Icon
@@ -29,9 +28,9 @@ export default {
     },
     type: {
       validator: (value) => {
-        return ['default', 'primary', 'danger', 'warning'].includes(value)
+        return ['text', 'textarea', 'password'].includes(value)
       },
-      default: 'default'
+      default: 'text'
     },
     circle: {
       type: [Boolean, Number],
@@ -55,11 +54,14 @@ export default {
       ]
     },
     tagName () {
-      if (typeof this.$attrs.href !== 'undefined') return 'a'
+      if (this.$attrs.type === 'textarea') return 'textarea'
 
-      if (typeof this.$attrs.to !== 'undefined') return 'router-link'
+      return 'input'
+    }
+  },
+  methods: {
+    handleClear () {
 
-      return 'button'
     }
   }
 }

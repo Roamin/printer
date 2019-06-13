@@ -3,6 +3,11 @@
        @drop.prevent="dropHandle"
        @dragover.prevent="dragoverHandle"
        @dragleave.prevent="dragleaveHandle">
+    <input :class="`${prefixCls}__file-input`"
+           type="file"
+           :accept="accept"
+           :multiple="multiple"
+           @change="upload">
     <Icon type="upload"
           size="32px" />
     <div :class="`${prefixCls}__tips`">点击或拖拽上传</div>
@@ -24,21 +29,29 @@ export default {
     Icon
   },
   props: {
-    value: {
-      type: Array,
-      default: () => []
+    accept: {
+      type: String,
+      default: '.gif,.webp,.png,.jpeg,.jpg'
+    },
+    multiple: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
     return {
       prefixCls,
-      dragover: false
+      dragover: false,
+      val: []
     }
   },
   computed: {
     classnames () {
       return [
-        `${prefixCls}`
+        `${prefixCls}`,
+        {
+          'drop-in': this.dragover
+        }
       ]
     }
   },
@@ -58,14 +71,22 @@ export default {
       const images = Array.from(files).map(({ name, path }) => {
         return { filename: name, filePath: path }
       })
-
-      console.log(JSON.stringify(images, null, 4))
+      const result = []
+      let count = images.length
 
       images.forEach((image) => {
-        fetch('common.uploadImage', image).then((res) => {
-          console.log(image, JSON.stringify(res, null, 4))
+        fetch('common.uploadImage', image).then((filePath) => {
+          count--
+          result.push(filePath)
+
+          if (count === 0) {
+            this.$emit('on-success', result)
+          }
         })
       })
+    },
+    upload (event) {
+      this.uploadImages(event.target.files)
     }
   }
 }

@@ -52,7 +52,7 @@ ipcRegister(
           .then(resolve)
           .catch(reject)
       })
-    } else {
+    } else if (type === 'url') {
       const ext = path.extname(data)
       const md5sum = crypto.createHash('md5')
       const tmpPath = path.join(TMP_DIR, `${tmpId}${ext}`)

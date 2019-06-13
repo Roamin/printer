@@ -1,7 +1,7 @@
 <template>
   <div :class="classnames">
     <header :class="`${prefixCls}__header`">
-      <Toolbar />
+      <Toolbar @on-insert="insert" />
     </header>
     <div :class="`${prefixCls}__body`">
       <Split>
@@ -97,6 +97,8 @@ export default {
     insert (insertStr) {
       const { selectionStart: startPos, selectionEnd: endPos } = this.refTextarea
       const oldVal = this.val
+
+      console.log(startPos, endPos)
 
       this.val = oldVal.substring(0, startPos) + insertStr + oldVal.substring(endPos, oldVal.length)
       this.update()
