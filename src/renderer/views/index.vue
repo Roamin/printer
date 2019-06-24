@@ -72,6 +72,7 @@ export default {
 
   &__view {
     flex: auto;
+    overflow: hidden;
   }
 }
 

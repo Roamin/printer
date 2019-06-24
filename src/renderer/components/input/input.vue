@@ -1,11 +1,17 @@
 <template>
-  <component :is="tagName"
-             :class="classnames"
-             v-bind="$attrs">
-    <Icon :type="icon"
-          v-if="icon" />
-    <slot />
-  </component>
+  <div>
+    <template v-if="type === 'textarea'">
+      <textarea :class="classnames"
+                v-bind="$attrs"
+                v-model="val"></textarea>
+    </template>
+    <template v-else>
+      <input :class="classnames"
+             :type="type"
+             v-bind="$attrs"
+             v-model="val" />
+    </template>
+  </div>
 </template>
 
 <script>
@@ -28,18 +34,18 @@ export default {
     },
     type: {
       validator: (value) => {
-        return ['text', 'textarea', 'password'].includes(value)
+        return ['text', 'textarea', 'password', 'number'].includes(value)
       },
       default: 'text'
     },
-    circle: {
-      type: [Boolean, Number],
-      default: false
+    value: {
+      type: [Number, String],
+      default: ''
     }
   },
   data () {
     return {
-
+      val: ''
     }
   },
   computed: {
@@ -62,6 +68,23 @@ export default {
   methods: {
     handleClear () {
 
+    }
+  },
+  watch: {
+    value (val) {
+      if (val !== this.val) {
+        this.val = val
+      }
+    },
+    val (val) {
+      if (val !== this.value) {
+        this.$emit('input', val)
+      }
+    }
+  },
+  created () {
+    if (this.val !== this.value) {
+      this.val = this.value
     }
   }
 }

@@ -4,7 +4,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
+  min-width: 400px;
+  max-width: 900px;
   border-radius: 4px;
   background-color: #fff;
 
@@ -37,6 +38,7 @@
   }
 
   &__body {
+    overflow: auto;
   }
 
   &__footer {
