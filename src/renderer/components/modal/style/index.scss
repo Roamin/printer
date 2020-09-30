@@ -24,7 +24,7 @@
     top: 10px;
     right: 10px;
     font-size: 16px;
-    color: $text-color-dark;
+    color: var(--text-color)-dark;
   }
 
   &__header,
@@ -34,7 +34,7 @@
   }
 
   &__header {
-    font-weight: $font-weight-bold;
+    font-weight: var(--font-weight-bold);
   }
 
   &__body {

@@ -9,20 +9,15 @@
       </header>
       <div class="aside__body">
         <ul class="nav-list">
-          <nav v-for="nav in navList"
-               :key="nav.to">
-            <router-link class="router-link"
-                         :to="nav.to"
-                         active-class="active">
+          <nav v-for="nav in navList" :key="nav.to">
+            <router-link class="router-link" :to="nav.to" active-class="active">
               <Icon :type="nav.icon" />
             </router-link>
           </nav>
         </ul>
       </div>
       <footer class="aside__footer">
-        <Button class="btn btn-setting"
-                radius="8"
-                icon="sync" />
+        <Button class="btn btn-setting" radius="8" icon="sync" />
       </footer>
     </aside>
     <div class="layout__view">

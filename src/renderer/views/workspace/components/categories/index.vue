@@ -1,19 +1,19 @@
 <template>
   <div class="aside">
     <header class="aside__header">
-      <Icon class="icon icon-add"
-            type="add" />
+      <Icon class="icon icon-add" type="add" />
       <h4 class="title">Categories</h4>
     </header>
     <div class="aside__body">
       <ul class="categories">
-        <li class="category"
-            v-for="item in categories"
-            :class="{active: category.path === item.path}"
-            :key="item.path"
-            @click="cdCategory(item)">
-          <Icon class="category-icon"
-                type="folder" />
+        <li
+          class="category"
+          v-for="item in categories"
+          :class="{ active: category.path === item.path }"
+          :key="item.path"
+          @click="cdCategory(item)"
+        >
+          <Icon class="category-icon" type="folder" />
           <span class="category-name">{{ item.name }}</span>
         </li>
       </ul>
@@ -86,7 +86,7 @@ export default {
 
     .title {
       flex: auto;
-      color: $text-color-dark;
+      color: var(--text-color)-dark;
     }
 
     .icon {
@@ -94,7 +94,7 @@ export default {
       padding: 4px;
       flex-shrink: 0;
       font-size: 14px;
-      color: $text-color-dark;
+      color: var(--text-color)-dark;
     }
   }
 
@@ -123,10 +123,10 @@ export default {
       background-color: rgba(#000, 0.03);
     }
     &.active {
-      color: $text-color-dark;
+      color: var(--text-color)-dark;
 
       .category-icon {
-        color: $text-color-dark;
+        color: var(--text-color)-dark;
       }
     }
 

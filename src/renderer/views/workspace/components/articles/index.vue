@@ -1,26 +1,27 @@
 <template>
   <div class="articles">
     <header class="articles__header">
-      <Icon class="icon icon-add"
-            type="add" />
+      <Icon class="icon icon-add" type="add" />
       <h4 class="title">Articles</h4>
     </header>
     <div class="articles__search-bar">
-      <Search class="search-input"
-              @on-search="search" />
+      <Search class="search-input" @on-search="search" />
     </div>
     <div class="articles__body">
-
       <ul class="articles">
-        <li class="article"
-            v-for="item in filteredArticles"
-            :key="item.path"
-            :class="{active: article.path === item.path}"
-            @click="cdArticle(item)">
+        <li
+          class="article"
+          v-for="item in filteredArticles"
+          :key="item.path"
+          :class="{ active: article.path === item.path }"
+          @click="cdArticle(item)"
+        >
           <h3 class="article-title">{{ item.name }}</h3>
           <p class="article-summary">{{ item.summary }}</p>
           <div>
-            <time class="article-create-time">{{ item.birthtime | moment('YYYY-MM-DD') }}</time>
+            <time class="article-create-time">{{
+              item.birthtime | moment("YYYY-MM-DD")
+            }}</time>
           </div>
         </li>
       </ul>
@@ -31,7 +32,7 @@
 <script>
 import { mapState } from 'vuex'
 
-import Button from '@/components/button'
+// import Button from '@/components/button'
 import Icon from '@/components/icon'
 import Search from '@/components/search'
 
@@ -40,7 +41,7 @@ import moment from '@/filters/moment'
 export default {
   name: 'Articles',
   components: {
-    Button,
+    // Button,
     Icon,
     Search
   },
@@ -109,7 +110,7 @@ export default {
 
     .title {
       flex: auto;
-      color: $text-color-dark;
+      color: var(--text-color)-dark;
     }
 
     .icon {
@@ -117,13 +118,13 @@ export default {
       padding: 4px;
       flex-shrink: 0;
       font-size: 14px;
-      color: $text-color-dark;
+      color: var(--text-color)-dark;
     }
   }
 
   &__search-bar {
     padding: 0 18px 12px;
-    border-bottom: 1px solid $border-color;
+    border-bottom: 1px solid var(--border-color);
   }
 
   .article {
@@ -137,7 +138,7 @@ export default {
     &-title {
       font-size: 16px;
       font-weight: 400;
-      color: $text-color-dark;
+      color: var(--text-color)-dark;
     }
 
     &-summary {

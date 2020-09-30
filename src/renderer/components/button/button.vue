@@ -50,7 +50,7 @@ export default {
         {
           [`${this.size}`]: this.size,
           [`${this.type}`]: this.type,
-          'circle': this.circle
+          circle: this.circle
         }
       ]
     },

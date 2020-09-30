@@ -1,21 +1,16 @@
 <template>
   <div>
     <template v-if="type === 'textarea'">
-      <textarea :class="classnames"
-                v-bind="$attrs"
-                v-model="val"></textarea>
+      <textarea :class="classnames" v-bind="$attrs" v-model="val"></textarea>
     </template>
     <template v-else>
-      <input :class="classnames"
-             :type="type"
-             v-bind="$attrs"
-             v-model="val" />
+      <input :class="classnames" :type="type" v-bind="$attrs" v-model="val" />
     </template>
   </div>
 </template>
 
 <script>
-import Icon from '../icon'
+// import Icon from '../icon'
 
 const prefixCls = 'c-input'
 
@@ -23,7 +18,7 @@ export default {
   name: 'Input',
   inheritAttrs: false,
   components: {
-    Icon
+    // Icon
   },
   props: {
     icon: {
@@ -55,7 +50,7 @@ export default {
         {
           [`${this.size}`]: this.size,
           [`${this.type}`]: this.type,
-          'circle': this.circle
+          circle: this.circle
         }
       ]
     },

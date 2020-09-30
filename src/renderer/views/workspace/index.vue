@@ -64,7 +64,7 @@ export default {
 
   &__articles,
   &__article {
-    border-left: 1px solid $border-color;
+    border-left: 1px solid var(--border-color);
   }
 
   &__aside {

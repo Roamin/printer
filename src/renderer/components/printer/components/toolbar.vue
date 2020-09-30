@@ -2,65 +2,59 @@
   <div class="toolbar">
     <div class="left">
       <Tooltip content="Upload image">
-        <Button class="button"
-                size="small"
-                icon="image"
-                @click.native="showModal('upload')" />
+        <Button
+          class="button"
+          size="small"
+          icon="image"
+          @click.native="showModal('upload')"
+        />
       </Tooltip>
       <Tooltip content="Insert table">
-        <Button class="button"
-                size="small"
-                icon="table"
-                @click.native="showModal('table')" />
+        <Button
+          class="button"
+          size="small"
+          icon="table"
+          @click.native="showModal('table')"
+        />
       </Tooltip>
       <Tooltip content="Undo">
-        <Button class="button"
-                size="small"
-                icon="undo" />
+        <Button class="button" size="small" icon="undo" />
       </Tooltip>
       <Tooltip content="Redo">
-        <Button class="button"
-                size="small"
-                icon="redo" />
+        <Button class="button" size="small" icon="redo" />
       </Tooltip>
     </div>
 
     <div class="right">
-      <Button class="button"
-              size="small"
-              icon="help-circle" />
-      <Button class="button"
-              size="small"
-              icon="layout" />
-      <Button class="button"
-              size="small"
-              icon="save" />
+      <Button class="button" size="small" icon="help-circle" />
+      <Button class="button" size="small" icon="layout" />
+      <Button class="button" size="small" icon="save" />
     </div>
 
     <Modal v-model="upload.visible">
       <template slot="header">
         <div>Upload image</div>
       </template>
-      <Upload multiple
-              @on-success="insertImages" />
+      <Upload multiple @on-success="insertImages" />
     </Modal>
 
-    <Modal @on-confirm="insertTable"
-           v-model="table.visible">
+    <Modal @on-confirm="insertTable" v-model="table.visible">
       <template slot="header">
         <div>Insert Table</div>
       </template>
       <Button @click.native="addRow">Add Row</Button>
       <Button @click.native="addColumn">Add Column</Button>
-      <div class="table-wrapper"
-           style="overflow: auto;padding: 5px;">
+      <div class="table-wrapper" style="overflow: auto; padding: 5px">
         <table>
-          <tr v-for="(row, rowIndex) in table.form.model.data"
-              :key="rowIndex">
-            <component :is="rowIndex === 0 ? 'th' : 'td'"
-                       v-for="(column, columnIndex) in table.form.model.data[rowIndex]"
-                       :key="columnIndex"><Input :placeholder="rowIndex === 0 ? `Title${columnIndex + 1}` : ''"
-                     v-model="table.form.model.data[rowIndex][columnIndex]" /></component>
+          <tr v-for="(row, rowIndex) in table.form.model.data" :key="rowIndex">
+            <component
+              :is="rowIndex === 0 ? 'th' : 'td'"
+              v-for="(column, columnIndex) in table.form.model.data[rowIndex]"
+              :key="columnIndex"
+              ><Input
+                :placeholder="rowIndex === 0 ? `Title${columnIndex + 1}` : ''"
+                v-model="table.form.model.data[rowIndex][columnIndex]"
+            /></component>
           </tr>
         </table>
       </div>
@@ -169,7 +163,7 @@ table {
   max-width: 100%;
   overflow: auto;
   border-spacing: 0;
-  border: 1px solid $border-color;
+  border: 1px solid var(--border-color);
   border-right: none;
   border-bottom: none;
 
@@ -185,8 +179,8 @@ table {
   td,
   th {
     padding: 5px;
-    border-right: 1px solid $border-color;
-    border-bottom: 1px solid $border-color;
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
   }
 
   td {

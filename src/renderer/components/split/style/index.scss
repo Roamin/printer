@@ -28,6 +28,6 @@
     border-left: $border-width solid transparent;
     border-right: $border-width solid transparent;
     cursor: col-resize;
-    box-shadow: inset 0 0 0 ($width - $border-width * 2) $border-color;
+    box-shadow: inset 0 0 0 ($width - $border-width * 2) var(--border-color);
   }
 }

@@ -6,33 +6,36 @@
     <div :class="`${prefixCls}__body`">
       <Split>
         <template v-slot:left>
-          <div ref="editorScroll"
-               style="height: 100%; overflow: auto">
+          <div ref="editorScroll" style="height: 100%; overflow: auto">
             <div class="editor">
               <div class="line-numbers">
-                <div class="line-number line-number--placeholder">{{ valSegments.length }}</div>
+                <div class="line-number line-number--placeholder">
+                  {{ valSegments.length }}
+                </div>
               </div>
               <div class="textarea-wrapper">
                 <div class="textarea-simulator">
-                  <div class="textarea-simulator__segment"
-                       v-for="(segment, line) in valSegments"
-                       :key="line + '-' + segment">
+                  <div
+                    class="textarea-simulator__segment"
+                    v-for="(segment, line) in valSegments"
+                    :key="line + '-' + segment"
+                  >
                     <div class="line-number">{{ line + 1 }}</div>
-                    <p class="paragraph">{{ segment || '\r' }}</p>
+                    <p class="paragraph">{{ segment || "\r" }}</p>
                   </div>
                 </div>
-                <textarea ref="textarea"
-                          @paste="paste"
-                          v-model="val"></textarea>
+                <textarea
+                  ref="textarea"
+                  @paste="paste"
+                  v-model="val"
+                ></textarea>
               </div>
             </div>
           </div>
         </template>
         <template v-slot:right>
-          <div class="previewer"
-               @scroll="handleScroll($event, 'editorScroll')">
-            <article class="markdown-content"
-                     v-html="html"></article>
+          <div class="previewer" @scroll="handleScroll($event, 'editorScroll')">
+            <article class="markdown-content" v-html="html"></article>
           </div>
         </template>
       </Split>
@@ -43,8 +46,8 @@
 <script>
 import typeOf from 'common/utils/typeof'
 
-import Button from '../button'
-import Icon from '../icon'
+// import Button from '../button'
+// import Icon from '../icon'
 import Split from '../split'
 
 import Toolbar from './components/toolbar'
@@ -58,8 +61,8 @@ const IMAGE_MIME_TYPES = ['image/gif', 'image/webp', 'image/png', 'image/jpeg']
 export default {
   name: 'Printer',
   components: {
-    Button,
-    Icon,
+    // Button,
+    // Icon,
     Split,
     Toolbar
   },

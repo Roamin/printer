@@ -19,7 +19,7 @@
     color: #fff;
     background-color: $background-color;
     white-space: nowrap;
-    box-shadow: 0 5px 20px $box-shadow-color;
+    box-shadow: 0 5px 20px var(--box-shadow-color);
 
     &::before {
       content: "";

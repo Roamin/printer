@@ -1,6 +1,6 @@
 import { ipcMain } from 'electron'
 
-import getApi from 'common/utils/get-api'
+import getApi from '../../common/utils/get-api'
 
 export default function (name, handle) {
   const { async = true, channel } = getApi(name)

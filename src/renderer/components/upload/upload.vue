@@ -1,31 +1,32 @@
 <template>
-  <div :class="classnames"
-       @drop.prevent="dropHandle"
-       @dragover.prevent="dragoverHandle"
-       @dragleave.prevent="dragleaveHandle">
-    <input :class="`${prefixCls}__file-input`"
-           type="file"
-           :accept="accept"
-           :multiple="multiple"
-           @change="upload">
-    <Icon type="upload"
-          size="32px" />
+  <div
+    :class="classnames"
+    @drop.prevent="dropHandle"
+    @dragover.prevent="dragoverHandle"
+    @dragleave.prevent="dragleaveHandle"
+  >
+    <input
+      :class="`${prefixCls}__file-input`"
+      type="file"
+      :accept="accept"
+      :multiple="multiple"
+      @change="upload"
+    />
+    <Icon type="upload" size="32px" />
     <div :class="`${prefixCls}__tips`">点击或拖拽上传</div>
   </div>
 </template>
 
 <script>
-import Button from '../button'
+// import Button from '../button'
 import Icon from '../icon'
-
-import fetch from '../../utils/fetch'
 
 const prefixCls = 'c-upload'
 
 export default {
   name: 'Upload',
   components: {
-    Button,
+    // Button,
     Icon
   },
   props: {
@@ -75,7 +76,7 @@ export default {
       let count = images.length
 
       images.forEach((image) => {
-        fetch('common.uploadImage', image).then((filePath) => {
+        this.$fetch('common.uploadImage', image).then((filePath) => {
           count--
           result.push(filePath)
 

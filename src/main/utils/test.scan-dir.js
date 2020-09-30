@@ -10,7 +10,7 @@ function scanDir (dir, deep = 1) {
   deep--
 
   const files = fs.readdirSync(dir)
-  let tree = []
+  const tree = []
 
   files.forEach(file => {
     const filePath = path.join(dir, file)

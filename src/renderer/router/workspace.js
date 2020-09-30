@@ -1,6 +1,6 @@
 export default {
   path: '/workspace',
-  component: { template: '<router-view></router-view>' },
+  component: { render: h => h('router-view') },
   children: [
     {
       path: 'view',

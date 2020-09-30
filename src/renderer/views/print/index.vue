@@ -5,13 +5,13 @@
 </template>
 
 <script>
-import Button from '@/components/button'
+// import Button from '@/components/button'
 import Printer from '@/components/printer'
 
 export default {
   name: 'Article',
   components: {
-    Button,
+    // Button,
     Printer
   },
   data () {

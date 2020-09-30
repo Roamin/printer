@@ -1,18 +1,19 @@
 <template>
   <div class="article">
     <header>
-      <Button class="button"
-              icon="edit"
-              :to="{
-                name: 'print',
-                params: {
-                  path: article.path
-                }
-              }" />
+      <Button
+        class="button"
+        icon="edit"
+        :to="{
+          name: 'print',
+          params: {
+            path: article.path,
+          },
+        }"
+      />
     </header>
     <div class="article__body">
-      <article class="markdown-content"
-               v-html="renderedContent"></article>
+      <article class="markdown-content" v-html="renderedContent"></article>
     </div>
   </div>
 </template>
@@ -92,7 +93,7 @@ export default {
     text-align: right;
 
     .button {
-      color: $text-color;
+      color: var(--text-color);
     }
   }
 

@@ -1,76 +1,130 @@
 'use strict'
 
-import { app, BrowserWindow } from 'electron'
+import { app, protocol, BrowserWindow, Menu } from 'electron'
+import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
+import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+import initIpcEvent from './ipc-event'
 
-import './ipc'
+const isDevelopment = process.env.NODE_ENV !== 'production'
 
-/**
- * Set `__static` path to static files in production
- * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
- */
-if (process.env.NODE_ENV !== 'development') {
-  global.__static = require('path')
-    .join(__dirname, '/static')
-    .replace(/\\/g, '\\\\')
-}
+// Keep a global reference of the window object, if you don't, the window will
+// be closed automatically when the JavaScript object is garbage collected.
+let win
 
-let mainWindow
-const winURL =
-  process.env.NODE_ENV === 'development'
-    ? `http://localhost:9080`
-    : `file://${__dirname}/index.html`
+// Scheme must be registered before the app is ready
+protocol.registerSchemesAsPrivileged([
+  { scheme: 'app', privileges: { secure: true, standard: true } }
+])
 
 function createWindow () {
-  /**
-   * Initial window options
-   */
-  mainWindow = new BrowserWindow({
+  // Create the browser window.
+  win = new BrowserWindow({
     title: app.getName(),
-    // titleBarStyle: 'hidden',
     width: 1080,
-    height: 720,
+    minWidth: 680,
+    height: 840,
     webPreferences: {
-      experimentalFeatures: true
+      enableRemoteModule: true,
+      webSecurity: false, // CORS
+      webviewTag: true, // enable webview
+      // Use pluginOptions.nodeIntegration, leave this alone
+      // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
+      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION
     }
   })
 
-  mainWindow.loadURL(winURL)
+  if (process.env.WEBPACK_DEV_SERVER_URL) {
+    // Load the url of the dev server if in development mode
+    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
+    if (!process.env.IS_TEST) win.webContents.openDevTools()
+  } else {
+    createProtocol('app')
+    // Load the index.html when not in development
+    win.loadURL('app://./index.html')
+  }
 
-  mainWindow.on('closed', () => {
-    mainWindow = null
+  win.on('closed', () => {
+    win = null
   })
+
+  initIpcEvent()
+  createMenu()
 }
 
-app.on('ready', createWindow)
+// 设置菜单栏
+function createMenu () {
+  // darwin表示macOS，针对macOS的设置
+  if (process.platform === 'darwin') {
+    const template = [
+      {
+        label: 'App Demo',
+        submenu: [
+          { role: 'copy' },
+          { role: 'paste' },
+          { role: 'about' },
+          { role: 'quit' }
+        ]
+      }
+    ]
 
+    const menu = Menu.buildFromTemplate(template)
+
+    Menu.setApplicationMenu(menu)
+  } else {
+    // windows及linux系统
+    Menu.setApplicationMenu(null)
+  }
+}
+
+// 开机启动
+app.setLoginItemSettings({
+  openAtLogin: true, // Boolean 在登录时启动应用
+  openAsHidden: true // Boolean (可选) mac 表示以隐藏的方式启动应用。~~~~
+})
+
+// Quit when all windows are closed.
 app.on('window-all-closed', () => {
+  // On macOS it is common for applications and their menu bar
+  // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
     app.quit()
   }
 })
 
 app.on('activate', () => {
-  if (mainWindow === null) {
+  // On macOS it's common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
+  if (win === null) {
     createWindow()
   }
 })
 
-/**
- * Auto Updater
- *
- * Uncomment the following code below and install `electron-updater` to
- * support auto updating. Code Signing with a valid certificate is required.
- * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-electron-builder.html#auto-updating
- */
-
-/*
-import { autoUpdater } from 'electron-updater'
-
-autoUpdater.on('update-downloaded', () => {
-  autoUpdater.quitAndInstall()
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+app.on('ready', async () => {
+  if (isDevelopment && !process.env.IS_TEST) {
+    // Install Vue Devtools
+    try {
+      await installExtension(VUEJS_DEVTOOLS)
+    } catch (e) {
+      console.error('Vue Devtools failed to install:', e.toString())
+    }
+  }
+  createWindow()
 })
 
-app.on('ready', () => {
-  if (process.env.NODE_ENV === 'production') autoUpdater.checkForUpdates()
-})
- */
+// Exit cleanly on request from parent process in development mode.
+if (isDevelopment) {
+  if (process.platform === 'win32') {
+    process.on('message', (data) => {
+      if (data === 'graceful-exit') {
+        app.quit()
+      }
+    })
+  } else {
+    process.on('SIGTERM', () => {
+      app.quit()
+    })
+  }
+}

@@ -32,9 +32,9 @@
   }
 
   $types: (
-    primary: $primary,
-    danger: $danger,
-    warning: $warning
+    primary: var(--primary),
+    danger: var(--danger),
+    warning: var(--warning),
   );
 
   @each $type, $color in $types {
