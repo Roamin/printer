@@ -1,7 +1,7 @@
 <template>
   <div :class="classnames">
     <header :class="`${prefixCls}__header`">
-      <Toolbar @on-insert="insert" />
+      <Toolbar @on-insert="insert" @on-save="handleSave" />
     </header>
     <div :class="`${prefixCls}__body`">
       <Split>
@@ -21,7 +21,7 @@
                     :key="line + '-' + segment"
                   >
                     <div class="line-number">{{ line + 1 }}</div>
-                    <p class="paragraph">{{ segment || "\r" }}</p>
+                    <p class="paragraph">{{ segment || " " }}</p>
                   </div>
                 </div>
                 <textarea
@@ -46,11 +46,11 @@
 <script>
 import typeOf from 'common/utils/typeof'
 
-// import Button from '../button'
-// import Icon from '../icon'
-import Split from '../split'
+// import Button from '@/components/button'
+// import Icon from '@/components/icon'
+import Split from '@/components/split'
 
-import Toolbar from './components/toolbar'
+import Toolbar from './components/Toolbar'
 import md from './md'
 
 const prefixCls = 'c-printer'
@@ -105,6 +105,10 @@ export default {
 
       this.val = oldVal.substring(0, startPos) + insertStr + oldVal.substring(endPos, oldVal.length)
       this.update()
+    },
+    handleSave () {
+      this.update()
+      this.$emit('on-save')
     },
     handleScroll (event, ref) {
       const another = this.$refs[ref]
@@ -192,4 +196,10 @@ export default {
 </script>
 <style lang="scss">
 @import "~@/styles/markdown";
+
+.c-printer {
+  &__header {
+    border: 1px solid var(--border-color);
+  }
+}
 </style>

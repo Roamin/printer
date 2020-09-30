@@ -2,10 +2,10 @@ import path from 'path'
 
 import scanDir from '../utils/scan-dir'
 import getFileText from '../utils/get-file-text'
+import saveFile from '../utils/save-file'
 import ipcRegister from '../utils/ipc-register'
 
 export default function () {
-
   ipcRegister('repository.getList', (event, req, resolve, reject) => {
     try {
       const files = scanDir(path.join(__static, './repository/roam'))
@@ -66,4 +66,17 @@ export default function () {
     }
   )
 
+  ipcRegister(
+    'repository.saveArticle',
+    (event, { path: articlePath, text }, resolve, reject) => {
+      console.log(articlePath, text)
+      saveFile(articlePath, text)
+        .then(res => {
+          resolve(res)
+        })
+        .catch(error => {
+          reject(error)
+        })
+    }
+  )
 }

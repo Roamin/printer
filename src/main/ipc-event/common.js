@@ -35,7 +35,6 @@ function renameImage (tmpPath, fileHash, ext) {
 }
 
 export default function () {
-
   ipcRegister(
     'common.saveImage',
     (event, { type, data, ext = '.png' }, resolve, reject) => {
@@ -112,5 +111,4 @@ export default function () {
         .pipe(ws)
     }
   )
-
 }

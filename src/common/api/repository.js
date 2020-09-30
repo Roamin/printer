@@ -12,5 +12,8 @@ export default {
   },
   getArticle: {
     channel: `${controller}/getArticle`
+  },
+  saveArticle: {
+    channel: `${controller}/saveArticle`
   }
 }

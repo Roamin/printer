@@ -1,5 +1,5 @@
 export default {
-  path: '/workspace',
-  name: 'workspace',
-  component: () => import('@/views/workspace')
+  path: '/setting',
+  name: 'setting',
+  component: () => import('@/views/setting/Index')
 }

@@ -1,4 +1,4 @@
 import './style/index.scss'
-import Printer from './printer'
+import Printer from './Printer'
 
 export default Printer

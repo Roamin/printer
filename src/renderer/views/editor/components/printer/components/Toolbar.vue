@@ -28,7 +28,12 @@
     <div class="right">
       <Button class="button" size="small" icon="help-circle" />
       <Button class="button" size="small" icon="layout" />
-      <Button class="button" size="small" icon="save" />
+      <Button
+        class="button"
+        size="small"
+        icon="save"
+        @click.native="emit('save')"
+      />
     </div>
 
     <Modal v-model="upload.visible">
@@ -63,12 +68,12 @@
 </template>
 
 <script>
-import Button from '../../button'
-import Icon from '../../icon'
-import Input from '../../input'
-import Modal from '../../modal'
-import Tooltip from '../../tooltip'
-import Upload from '../../upload'
+import Button from '@/components/button'
+import Icon from '@/components/icon'
+import Input from '@/components/input'
+import Modal from '@/components/modal'
+import Tooltip from '@/components/tooltip'
+import Upload from '@/components/upload'
 
 export default {
   name: 'Toolbar',
@@ -107,6 +112,9 @@ export default {
     }
   },
   methods: {
+    emit (eventName, ...args) {
+      this.$emit(`on-${eventName}`, ...args)
+    },
     insert (val) {
       this.$emit('on-insert', val)
     },
