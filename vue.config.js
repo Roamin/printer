@@ -26,8 +26,8 @@ module.exports = {
     'style-resources-loader': {
       preProcessor: 'scss',
       patterns: [
-        '/Users/vinci/Workspace/GitHub/printer/src/renderer/styles/_variables.scss',
-        '/Users/vinci/Workspace/GitHub/printer/src/renderer/styles/_mixins.scss'
+        './src/renderer/styles/_variables.scss',
+        './src/renderer/styles/_mixins.scss'
       ]
     }
   }
